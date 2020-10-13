@@ -7,7 +7,7 @@ Le dossier  node_modules  contient toutes les dépendances pour votre applicatio
 
 //////////////////////////////////////////
 
-    dans un fichier xxx.component.ts :
+dans un fichier xxx.component.ts :
 
     import { Component } from '@angular/core';
 
@@ -33,14 +33,14 @@ Le dossier  node_modules  contient toutes les dépendances pour votre applicatio
 
     //////////////////////////////////////////////////////////
 
-    déclaration de variable
+déclaration de variable
 
     dans fichier xxx.component.ts , on declare une variable dans la class exemple, nomDeVariable : string = 'valeur de la variable';
 
     dans fichier xxx.component.html , on affiche une variable avec les accolades exemple {{ nomDeVariable }}
 
 
-    déclaration de function
+déclaration de function
 
     dans fichier xxx.component.ts , on declare une function dans la class exemple :
       getFunction()
