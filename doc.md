@@ -57,7 +57,14 @@ Le dossier  `node_modules`  contient toutes les dépendances pour votre applicat
 exemple :
 
   `on lie la propriété` disabled qui est dans le `fichier app.component.html`, `à la variable` isAuth `qui est dans le fichier app.component.ts grace au crochets` -> [disabled], ce qui `permet a la variable` isAuth `d'influencer sur la propriété` disabled
-  `<button class="btn btn-success" [disabled]="!isAuth">Tout allumer</button>`
+  `<button [disabled]="!isAuth">Tout allumer</button>`
 
 
 ## Event binding
+
+`Event binding"` est une façon de permettre à un` code TypeScript de réagir à un évènnement venant du code html ` 
+on `utilise` les `parenthèses  ()`  pour `créer une liaison à un événement`
+
+exemple : 
+
+  `<button (click)='onAllume()'>Tout allumer</button>`

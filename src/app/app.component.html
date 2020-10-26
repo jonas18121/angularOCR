@@ -350,7 +350,7 @@
           <app-appareil></app-appareil>
         </ul>
         <!-- on lie la propriété disabled a la variable isAuth grace au crochets -> [disabled] -->
-        <button class="btn btn-success" [disabled]="!isAuth">Tout allumer</button>
+        <button class="btn btn-success" [disabled]="!isAuth" (click)='onAllume()'>Tout allumer</button>
       </div>
     </div>
   </div>
