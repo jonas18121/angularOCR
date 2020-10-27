@@ -68,3 +68,41 @@ on `utilise` les `parenthèses  ()`  pour `créer une liaison à un événement`
 exemple : 
 
   `<button (click)='onAllume()'>Tout allumer</button>`
+
+
+## Two-way binding
+
+La `liaison à double sens (ou two-way binding)` utilise la `liaison par propriété et la liaison par événement en même temps` ; on l'utilise, par exemple, pour les formulaires, afin de pouvoir `déclarer et de récupérer le contenu des champs`, entre autres.
+
+Pour pouvoir utiliser le two-way binding, il vous faut importer  `FormsModule  depuis  @angular/forms`  dans votre application dans AppModule.ts
+
+exemple :
+
+    import { BrowserModule } from '@angular/platform-browser';
+    import { NgModule } from '@angular/core';
+
+
+    import { AppComponent } from './app.component';
+    import { MonPremierComponent } from './mon-premier/mon-premier.component';
+    import { AppareilComponent } from './appareil/appareil.component';
+    import { FormsModule } from '@angular/forms';
+
+
+    @NgModule({
+      declarations: [
+        AppComponent,
+        MonPremierComponent,
+        AppareilComponent
+      ],
+      imports: [
+        BrowserModule,
+        FormsModule
+      ],
+      providers: [],
+      bootstrap: [AppComponent]
+    })
+    export class AppModule { }
+
+
+
+Le two-way binding emploie le `mélange` des `syntaxes de property binding et d'event binding` : des crochets et des parenthèses  `[()]`
