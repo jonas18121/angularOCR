@@ -11,6 +11,11 @@ export class AppComponent {
 
   isAuth = false;
 
+  appareilOne = 'machine à laver';
+  appareilTwo = 'frigo';
+  appareilThree = 'lave linge';
+
+
   constructor(){
 
     /** 
@@ -30,7 +35,6 @@ export class AppComponent {
   }
 
   onAllume(){
-    console.log('on allume tout ! ');
-    
+    alert('on allume tout !');
   }
 }

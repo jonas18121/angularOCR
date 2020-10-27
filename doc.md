@@ -106,3 +106,55 @@ exemple :
 
 
 Le two-way binding emploie le `mélange` des `syntaxes de property binding et d'event binding` : des crochets et des parenthèses  `[()]`
+
+exemple :
+  `<input type="text" [(ngModel)]='appareilName'>`
+
+
+
+## Propriétés personnalisées
+
+il est possible de `créer des propriétés personnalisées` dans un component afin de pouvoir lui transmettre des données depuis l'extérieur
+
+On uitlise le décorateur `@Input()` et on importe `Input` dans le `from '@angular/core'` du app.xxx.ts qu'on veut dymiser ses variables
+
+exemple
+    import { Component, Input, OnInit } from '@angular/core';
+
+    @Component({
+      selector: 'app-appareil',
+      templateUrl: './appareil.component.html',
+      styleUrls: ['./appareil.component.scss']
+    })
+    export class AppareilComponent implements OnInit {
+
+      @Input() appareilName: string;
+      
+      appareilStatus: string = 'éteint';
+
+      constructor() { }
+
+      ngOnInit() {
+      }
+
+      getStatus() {
+        return this.appareilStatus;
+      }
+
+    }
+
+
+dans le app.xxx.html on peut `<app-appareil appareilName="appareilOne"></app-appareil>`
+
+dans app.component.ts 
+
+    export class AppComponent {
+      isAuth = false;
+      
+      appareilOne = 'Machine à laver';
+      appareilTwo = 'Frigo';
+      appareilThree = 'Ordinateur';
+
+      constructor() {
+
+`si vous employez les crochets pour le property binding et que vous souhaitez y passer un string directement, il faut le mettre entre apostrophes, car entre les guillemets, sinon le framwork va croire que vous voulez mettre des variables, alors que vous voulez mettre des string ficelle :) `
