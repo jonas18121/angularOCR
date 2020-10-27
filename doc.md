@@ -57,7 +57,104 @@ Le dossier  `node_modules`  contient toutes les dépendances pour votre applicat
 exemple :
 
   `on lie la propriété` disabled qui est dans le `fichier app.component.html`, `à la variable` isAuth `qui est dans le fichier app.component.ts grace au crochets` -> [disabled], ce qui `permet a la variable` isAuth `d'influencer sur la propriété` disabled
-  `<button class="btn btn-success" [disabled]="!isAuth">Tout allumer</button>`
+  `<button [disabled]="!isAuth">Tout allumer</button>`
 
 
 ## Event binding
+
+`Event binding"` est une façon de permettre à un` code TypeScript de réagir à un évènnement venant du code html ` 
+on `utilise` les `parenthèses  ()`  pour `créer une liaison à un événement`
+
+exemple : 
+
+  `<button (click)='onAllume()'>Tout allumer</button>`
+
+
+## Two-way binding
+
+La `liaison à double sens (ou two-way binding)` utilise la `liaison par propriété et la liaison par événement en même temps` ; on l'utilise, par exemple, pour les formulaires, afin de pouvoir `déclarer et de récupérer le contenu des champs`, entre autres.
+
+Pour pouvoir utiliser le two-way binding, il vous faut importer  `FormsModule  depuis  @angular/forms`  dans votre application dans AppModule.ts
+
+exemple :
+
+    import { BrowserModule } from '@angular/platform-browser';
+    import { NgModule } from '@angular/core';
+
+
+    import { AppComponent } from './app.component';
+    import { MonPremierComponent } from './mon-premier/mon-premier.component';
+    import { AppareilComponent } from './appareil/appareil.component';
+    import { FormsModule } from '@angular/forms';
+
+
+    @NgModule({
+      declarations: [
+        AppComponent,
+        MonPremierComponent,
+        AppareilComponent
+      ],
+      imports: [
+        BrowserModule,
+        FormsModule
+      ],
+      providers: [],
+      bootstrap: [AppComponent]
+    })
+    export class AppModule { }
+
+
+
+Le two-way binding emploie le `mélange` des `syntaxes de property binding et d'event binding` : des crochets et des parenthèses  `[()]`
+
+exemple :
+  `<input type="text" [(ngModel)]='appareilName'>`
+
+
+
+## Propriétés personnalisées
+
+il est possible de `créer des propriétés personnalisées` dans un component afin de pouvoir lui transmettre des données depuis l'extérieur
+
+On uitlise le décorateur `@Input()` et on importe `Input` dans le `from '@angular/core'` du app.xxx.ts qu'on veut dymiser ses variables
+
+exemple
+    import { Component, Input, OnInit } from '@angular/core';
+
+    @Component({
+      selector: 'app-appareil',
+      templateUrl: './appareil.component.html',
+      styleUrls: ['./appareil.component.scss']
+    })
+    export class AppareilComponent implements OnInit {
+
+      @Input() appareilName: string;
+      
+      appareilStatus: string = 'éteint';
+
+      constructor() { }
+
+      ngOnInit() {
+      }
+
+      getStatus() {
+        return this.appareilStatus;
+      }
+
+    }
+
+
+dans le app.xxx.html on peut `<app-appareil appareilName="appareilOne"></app-appareil>`
+
+dans app.component.ts 
+
+    export class AppComponent {
+      isAuth = false;
+      
+      appareilOne = 'Machine à laver';
+      appareilTwo = 'Frigo';
+      appareilThree = 'Ordinateur';
+
+      constructor() {
+
+`si vous employez les crochets pour le property binding et que vous souhaitez y passer un string directement, il faut le mettre entre apostrophes, car entre les guillemets, sinon le framwork va croire que vous voulez mettre des variables, alors que vous voulez mettre des string ficelle :) `

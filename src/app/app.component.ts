@@ -11,6 +11,11 @@ export class AppComponent {
 
   isAuth = false;
 
+  appareilOne = 'machine à laver';
+  appareilTwo = 'frigo';
+  appareilThree = 'lave linge';
+
+
   constructor(){
 
     /** 
@@ -25,6 +30,11 @@ export class AppComponent {
       } , 4000
 
     );
+
     
+  }
+
+  onAllume(){
+    alert('on allume tout !');
   }
 }
