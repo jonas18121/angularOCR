@@ -348,6 +348,7 @@
           <app-appareil [appareilName]="appareilOne" [appareilStatus]="'éteint'"></app-appareil>
           <app-appareil [appareilName]="appareilTwo" [appareilStatus]="'allumé'"></app-appareil>
           <app-appareil [appareilName]="appareilThree" [appareilStatus]="'éteint'"></app-appareil>
+          <app-appareil [appareilName]="appareilFour" [appareilStatus]="'en panne'"></app-appareil>
         </ul>
         <!-- on lie la propriété disabled a la variable isAuth grace au crochets -> [disabled] -->
         <button class="btn btn-success" [disabled]="!isAuth" (click)='onAllume()'>Tout allumer</button>
