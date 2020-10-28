@@ -207,6 +207,9 @@ exemple :
 
 
 
+
+
+
   Maintenant, si la variable appareilStatus est égale à 'allumé', le contenu du `ng-template qui a le hastag green` #green s'affichera lui méme
   sinon, on va affiché le contenu du `ng-template qui a le hastag gray` #gray
   
