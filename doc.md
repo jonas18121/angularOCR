@@ -179,10 +179,54 @@ Ce sont des directives qui, `modifient la structure du document`.
 un peut comme pour la condition `if()`, la directive `*ngIf="condition"`, s'affichera seulement si la condition est `truthy`, `truthy = true pour la condition if()`
 
 exemple : 
-    Pour une démonstration simple, ajoutez une  <div>  rouge qui ne s'affichera que si l'appareil est éteint :
+  Pour une démonstration simple, ajoutez une  <div>  rouge qui ne s'affichera que si l'appareil est éteint :
+  
+  
     <div style="width:20px;height:20px;background-color:red;" *ngIf="appareilStatus === 'éteint'"></div>
 
 
+
+  démonstration `*ngIf avec then et esle`
+
+  Si la variable appareilStatus est égale à 'éteint', on va affiché le contenu du `ng-template qui a le hastag red` #red
+  sinon, on va affiché le contenu du `ng-template qui a le hastag green` #green
+  
+  
+  .
+  
+  
+    <div *ngIf="appareilStatus === 'éteint'; then red; else green" ></div>
+	
+	
+  .
+  
+  
+    <ng-template #red>
+        <div style="width:20px;height:20px;background-color:red;"></div>
+    </ng-template>
+
+
+
+
+
+
+  Maintenant, si la variable appareilStatus est égale à 'allumé', le contenu du `ng-template qui a le hastag green` #green s'affichera lui méme
+  sinon, on va affiché le contenu du `ng-template qui a le hastag gray` #gray
+  
+  .
+  
+  
+    <ng-template #green>
+        <div style="width:20px;height:20px;background-color:green;" *ngIf="appareilStatus === 'allumé'; else gray"></div>
+    </ng-template>
+	
+	
+  .
+  
+  
+    <ng-template #gray>
+        <div style="width:20px;height:20px;background-color:rgb(100, 104, 100);"></div>
+    </ng-template>
 
 
 

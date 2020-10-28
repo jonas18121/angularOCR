@@ -14,6 +14,7 @@ export class AppComponent {
   appareilOne = 'machine à laver';
   appareilTwo = 'frigo';
   appareilThree = 'lave linge';
+  appareilFour = 'micro onde';
 
 
   constructor(){
