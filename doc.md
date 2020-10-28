@@ -116,7 +116,7 @@ exemple :
 
 il est possible de `créer des propriétés personnalisées` dans un component afin de pouvoir lui transmettre des données depuis l'extérieur
 
-On uitlise le décorateur `@Input()` et on importe `Input` dans le `from '@angular/core'` du app.xxx.ts qu'on veut dymiser ses variables
+On uitlise le décorateur `@Input()` et on importe `Input` dans le `from '@angular/core'` du app.xxx.ts qu'on veut dynamiser ses variables
 
 exemple
     import { Component, Input, OnInit } from '@angular/core';
