@@ -180,6 +180,8 @@ un peut comme pour la condition `if()`, la directive `*ngIf="condition"`, s'affi
 
 exemple : 
   Pour une démonstration simple, ajoutez une  <div>  rouge qui ne s'affichera que si l'appareil est éteint :
+  
+  
     <div style="width:20px;height:20px;background-color:red;" *ngIf="appareilStatus === 'éteint'"></div>
 
 
