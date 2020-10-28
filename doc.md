@@ -67,7 +67,7 @@ on `utilise` les `parenthèses  ()`  pour `créer une liaison à un événement`
 
 exemple : 
 
-  `<button (click)='onAllume()'>Tout allumer</button>`
+  <button (click)='onAllume()'>Tout allumer</button>
 
 
 ## Two-way binding
@@ -108,7 +108,7 @@ exemple :
 Le two-way binding emploie le `mélange` des `syntaxes de property binding et d'event binding` : des crochets et des parenthèses  `[()]`
 
 exemple :
-  `<input type="text" [(ngModel)]='appareilName'>`
+  <input type="text" [(ngModel)]='appareilName'>
 
 
 
@@ -144,7 +144,7 @@ exemple
     }
 
 
-dans le app.xxx.html on peut `<app-appareil appareilName="appareilOne"></app-appareil>`
+dans le app.xxx.html on peut <app-appareil appareilName="appareilOne"></app-appareil>
 
 dans app.component.ts 
 
@@ -158,3 +158,34 @@ dans app.component.ts
       constructor() {
 
 `si vous employez les crochets pour le property binding et que vous souhaitez y passer un string directement, il faut le mettre entre apostrophes, car entre les guillemets, sinon le framwork va croire que vous voulez mettre des variables, alors que vous voulez mettre des string ficelle :) `
+
+
+## Directives
+
+Les `directives` sont des `instructions intégrées dans le DOM`.  Quand Angular lit votre template et rencontre une directive qu'il reconnait, il suit les instructions correspondantes.
+
+Il existe `deux types` principaux `de directive` : les `directives structurelles` et les `directives par attribut`.
+
+
+### Directives structurelles
+
+Ce sont des directives qui, `modifient la structure du document`. 
+
+
+#### Directives structurelles *ngIf 
+
+`*ngIf`, pour afficher des données de façon conditionnelle.
+
+un peut comme pour la condition `if()`, la directive `*ngIf="condition"`, s'affichera seulement si la condition est `truthy`, `truthy = true pour la condition if()`
+
+exemple : 
+    Pour une démonstration simple, ajoutez une  <div>  rouge qui ne s'affichera que si l'appareil est éteint :
+    <div style="width:20px;height:20px;background-color:red;" *ngIf="appareilStatus === 'éteint'"></div>
+
+
+
+
+
+#### Directives structurelles *ngFor 
+
+`*ngFor` , pour itérer des données dans un array, par exemple
