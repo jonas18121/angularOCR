@@ -1,5 +1,19 @@
 <li class="list-group-item">
-    <div style="width:20px;height:20px;background-color:red;" *ngIf="appareilStatus === 'éteint'" ></div>
+
+    <div *ngIf="appareilStatus === 'éteint'; then red; else green" ></div>
+
+    <ng-template #red>
+        <div style="width:20px;height:20px;background-color:red;"></div>
+    </ng-template>
+
+    <ng-template #green>
+        <div style="width:20px;height:20px;background-color:green;" *ngIf="appareilStatus === 'allumé'; else gray"></div>
+    </ng-template>
+
+    <ng-template #gray>
+        <div style="width:20px;height:20px;background-color:rgb(100, 104, 100);"></div>
+    </ng-template>
+
     <h4>Appareil : {{ appareilName }} -- Status : {{ getStatus() }} </h4>
     <input type="text" [(ngModel)]="appareilName">
 </li>
