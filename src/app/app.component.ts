@@ -27,7 +27,7 @@ export class AppComponent {
     },
     {
       name : 'radio',
-      status : ' en panne'
+      status : 'en panne'
     }
   ];
 

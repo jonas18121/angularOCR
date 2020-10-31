@@ -1,4 +1,9 @@
-<li class="list-group-item">
+<li [ngClass]="{
+    'list-group-item' : true,
+    'list-group-item-success' : appareilStatus === 'allumé',
+    'list-group-item-danger' : appareilStatus === 'éteint',
+    'list-group-item-secondary' : appareilStatus === 'en panne'
+}">
 
     <div *ngIf="appareilStatus === 'éteint'; then red; else green" ></div>
 
