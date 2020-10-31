@@ -260,3 +260,29 @@ et maintenant on va utiliser le ngFor dans app.component.html
                     [appareilName]="appareil.name"
                     [appareilStatus]="appareil.status"
     ></app-appareil>
+
+
+
+### Directives par attribut
+
+les directives par attribut `modifient le comportement d'un objet déjà existant`. la directive  ngModel  que vous avez employée pour le two-way binding, qui modifie la valeur du  <input>  et répond à tout changement qu'on lui apporte.
+
+
+#### Directives par attribut ngStyle
+
+Cette directive permet d'`appliquer des styles` à un objet du DOM de manière `dynamique`.
+`ngStyle`  prend un objet JS de type `clé-valeur`, avec comme `clé le style à modifier`, et comme `valeur, la valeur souhaitée pour ce style`.
+
+exemple dans appareil.component.html
+
+    <h4 [ngStyle]="{color: getColor()}">Appareil : {{ appareilName }} -- Statut : {{ getStatus() }}</h4>
+
+et dans appareil.component.ts
+
+    getColor() {
+      if(this.appareilStatus === 'allumé') {
+        return 'green';
+      } else if(this.appareilStatus === 'éteint') {
+        return 'red';
+      }
+    }
