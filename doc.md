@@ -286,3 +286,17 @@ et dans appareil.component.ts
         return 'red';
       }
     }
+
+
+#### Directives par attribut ngClass
+
+Au-delà de modifier des styles directement, il peut être très utile d'`ajouter des classes CSS à un élément de manière dynamique`.  Comme  ngStyle ,  `ngClass`  prend un `objet clé-valeur`, mais cette fois avec la `classe à appliquer en clé, et la condition en valeur`.
+
+Que ce soit pour  `ngStyle  ou pour  ngClass` , les objets JS peuvent être des `variables valables dans votre TypeScript` qui seront ensuite `référencées par la directive`, par exemple :  [ngClass]="myClassObject"
+
+exemple :
+    <li [ngClass]="{
+      'list-group-item' : true,
+      'list-group-item-success' : appareilStatus === 'allumé',
+      'list-group-item-danger' : appareilStatus === 'éteint'
+    }">une liste<li>
