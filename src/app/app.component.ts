@@ -16,6 +16,21 @@ export class AppComponent {
   appareilThree = 'lave linge';
   appareilFour = 'micro onde';
 
+  appareils = [
+    {
+      name : 'télévision',
+      status : 'éteint'
+    },
+    {
+      name : 'ordinateur',
+      status : 'allumé'
+    },
+    {
+      name : 'radio',
+      status : ' en panne'
+    }
+  ];
+
 
   constructor(){
 

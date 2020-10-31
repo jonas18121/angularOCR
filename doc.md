@@ -162,6 +162,8 @@ dans app.component.ts
 
 ## Directives
 
+#### N'oubliez pas l'astérisque devant ces directives, qui signifie à Angular de les traiter comme directives structurelles !
+
 Les `directives` sont des `instructions intégrées dans le DOM`.  Quand Angular lit votre template et rencontre une directive qu'il reconnait, il suit les instructions correspondantes.
 
 Il existe `deux types` principaux `de directive` : les `directives structurelles` et les `directives par attribut`.
@@ -233,3 +235,28 @@ exemple :
 #### Directives structurelles *ngFor 
 
 `*ngFor` , pour itérer des données dans un array, par exemple
+
+Lorsque l'on ajoute la directive  `*ngFor="let obj of myArray"`  à un component, `Angular itérera l'array  myArray  et affichera un component par objet  obj` .
+
+pour lexemple on va créer un `tableau qui contiendra des objets qui représente des appareils` dans app.components.ts :  
+    appareils = [
+      {
+        name: 'Machine à laver',
+        status: 'éteint'
+      },
+      {
+        name: 'Frigo',
+        status: 'allumé'
+      },
+      {
+        name: 'Ordinateur',
+        status: 'éteint'
+      }
+    ];
+
+et maintenant on va utiliser le ngFor dans app.component.html
+
+    <app-appareil  *ngFor="let appareil of appareils"
+                    [appareilName]="appareil.name"
+                    [appareilStatus]="appareil.status"
+    ></app-appareil>
