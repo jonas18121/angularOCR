@@ -193,43 +193,30 @@ exemple :
   Si la variable appareilStatus est égale à 'éteint', on va affiché le contenu du `ng-template qui a le hastag red` #red
   sinon, on va affiché le contenu du `ng-template qui a le hastag green` #green
   
-  
   .
-  
-  
+    
     <div *ngIf="appareilStatus === 'éteint'; then red; else green" ></div>
-	
-	
   .
-  
   
     <ng-template #red>
         <div style="width:20px;height:20px;background-color:red;"></div>
     </ng-template>
 
 
-
-
-
-
   Maintenant, si la variable appareilStatus est égale à 'allumé', le contenu du `ng-template qui a le hastag green` #green s'affichera lui méme
   sinon, on va affiché le contenu du `ng-template qui a le hastag gray` #gray
-  
+
   .
-  
-  
+    
     <ng-template #green>
         <div style="width:20px;height:20px;background-color:green;" *ngIf="appareilStatus === 'allumé'; else gray"></div>
     </ng-template>
 	
-	
   .
-  
   
     <ng-template #gray>
         <div style="width:20px;height:20px;background-color:rgb(100, 104, 100);"></div>
     </ng-template>
-
 
 
 #### Directives structurelles *ngFor 
@@ -300,3 +287,54 @@ exemple :
       'list-group-item-success' : appareilStatus === 'allumé',
       'list-group-item-danger' : appareilStatus === 'éteint'
     }">une liste<li>
+
+
+
+
+## Pipe
+
+Les `pipes` (/pʌɪp/) prennent des `données en input`, les `transforment`, et puis `affichent les données modifiées dans le DOM`. 
+
+#### DatePipe
+
+`DatePipe` analyse des objets JS de type Date et qui les affiche d'une manière plus lisible que leur encodage de base
+
+exemple :
+  dans app.component.ts :
+    export class AppComponent {
+      lastUpdate = new Date();
+    }
+
+  puis dans app.component.html :
+    <p>Mis à jour : {{ lastUpdate | date: 'short' }}</p>
+
+
+##### Pour mettre la date en français
+
+version inférieur a angular 5 :
+dans `app.module.ts` mettre 
+    `import { LOCALE_ID } from '@angular/core';`
+
+puis mettre `{  provide: LOCALE_ID,useValue: 'fr'}` dans providers[] toujours dans `app.module.ts`
+
+    providers: [
+      {
+        provide: LOCALE_ID, 
+        useValue: 'fr'
+      }
+    ]
+
+et enfin rajouter le 'fr' dans fichier html
+    <p>Mis à jour : {{ lastUpdate | date: 'full' : 'fr' }}</p>
+
+
+##### En chainé les Pipes
+
+On avoir besoin de plusieurs pipes pour un seul élément du DOM.
+
+        <p>Mis à jour : {{ lastUpdate | date: 'full' : 'fr' | uppercase }}</p>
+
+`Attention : L'ordre des pipes est important. sinon ça peut ne pas fonctionner`
+
+
+#### AsyncPipe
