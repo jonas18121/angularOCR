@@ -6,10 +6,26 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent 
+{
   title = 'angularOCR ;-)';
 
   isAuth = false;
+
+  /**
+   * on va faire une Promise pour imiter un serveur afin de
+   * pouvoir utiliser le Pipe async
+   */
+  lastUpdate = new Promise((resolve, reject) => {
+
+    const date = new Date();
+
+    //affiche la date après 2 secondes
+    setTimeout(() => {
+      resolve(date);
+    }, 2000);
+    
+  });
 
   appareilOne = 'machine à laver';
   appareilTwo = 'frigo';
@@ -53,4 +69,5 @@ export class AppComponent {
   onAllume(){
     alert('on allume tout !');
   }
+
 }
