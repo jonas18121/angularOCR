@@ -338,3 +338,26 @@ On avoir besoin de plusieurs pipes pour un seul élément du DOM.
 
 
 #### AsyncPipe
+
+Le pipe `async` permet de `gérer des données asynchrones`, par exemple `des données` que l'application doit `récupérer sur un serveur`
+
+exemple :
+on va simuler le comportement d'un serveur en créant une Promise qui va se résoudre au bout de quelques secondes.
+
+dans app.component.ts :
+
+    lastUpdate = new Promise((resolve, reject) => {
+      const date = new Date();
+
+      setTimeout(
+        () => {
+          resolve(date);
+        }, 2000
+      );
+
+    });
+
+puis dans app.component.html :
+    <p>Mis à jour : {{ lastUpdate | async | date: 'yMMMMEEEEd' | uppercase }}</p>
+
+`Maintenant`, quand la page recharge, `le champ` "Mis à jour" est vide et puis, au bout de deux secondes, `les données retournées par la Promise sont reçues, modifiées par les pipes suivants, et affichées.`
