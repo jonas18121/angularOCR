@@ -67,7 +67,7 @@ on `utilise` les `parenthèses  ()`  pour `créer une liaison à un événement`
 
 exemple : 
 
-  <button (click)='onAllume()'>Tout allumer</button>
+  < button (click)='onAllume()'>Tout allumer</ button>
 
 
 ## Two-way binding
@@ -108,7 +108,7 @@ exemple :
 Le two-way binding emploie le `mélange` des `syntaxes de property binding et d'event binding` : des crochets et des parenthèses  `[()]`
 
 exemple :
-  <input type="text" [(ngModel)]='appareilName'>
+  < input type="text" [(ngModel)]='appareilName'>
 
 
 
@@ -116,7 +116,7 @@ exemple :
 
 il est possible de `créer des propriétés personnalisées` dans un component afin de pouvoir lui transmettre des données depuis l'extérieur
 
-On uitlise le décorateur `@Input()` et on importe `Input` dans le `from '@angular/core'` du app.xxx.ts qu'on veut dynamiser ses variables
+On uitlise le décorateur `@Input()` et on importe `Input` dans le `from '@angular/core'` du xxx.component.ts qu'on veut dynamiser ses variables
 
 exemple
     import { Component, Input, OnInit } from '@angular/core';
@@ -144,7 +144,7 @@ exemple
     }
 
 
-dans le app.xxx.html on peut <app-appareil appareilName="appareilOne"></app-appareil>
+dans le xxx.component.html on peut < app-appareil appareilName="appareilOne"></ app-appareil>
 
 dans app.component.ts 
 
@@ -181,7 +181,7 @@ Ce sont des directives qui, `modifient la structure du document`.
 un peut comme pour la condition `if()`, la directive `*ngIf="condition"`, s'affichera seulement si la condition est `truthy`, `truthy = true pour la condition if()`
 
 exemple : 
-  Pour une démonstration simple, ajoutez une  <div>  rouge qui ne s'affichera que si l'appareil est éteint :
+  Pour une démonstration simple, ajoutez une  < d i v >  rouge qui ne s'affichera que si l'appareil est éteint :
   
   
     <div style="width:20px;height:20px;background-color:red;" *ngIf="appareilStatus === 'éteint'"></div>
@@ -282,11 +282,11 @@ Au-delà de modifier des styles directement, il peut être très utile d'`ajoute
 Que ce soit pour  `ngStyle  ou pour  ngClass` , les objets JS peuvent être des `variables valables dans votre TypeScript` qui seront ensuite `référencées par la directive`, par exemple :  [ngClass]="myClassObject"
 
 exemple :
-    <li [ngClass]="{
+    < l i [ngClass]="{
       'list-group-item' : true,
       'list-group-item-success' : appareilStatus === 'allumé',
       'list-group-item-danger' : appareilStatus === 'éteint'
-    }">une liste<li>
+    }">une liste< l i >
 
 
 
@@ -306,7 +306,7 @@ exemple :
     }
 
   puis dans app.component.html :
-    <p>Mis à jour : {{ lastUpdate | date: 'short' }}</p>
+    < p >Mis à jour : {{ lastUpdate | date: 'short' }}< / p >
 
 
 ##### Pour mettre la date en français
@@ -325,7 +325,7 @@ puis mettre `{  provide: LOCALE_ID,useValue: 'fr'}` dans providers[] toujours da
     ]
 
 et enfin rajouter le 'fr' dans fichier html
-    <p>Mis à jour : {{ lastUpdate | date: 'full' : 'fr' }}</p>
+    < p >Mis à jour : {{ lastUpdate | date: 'full' : 'fr' }}< / p >
 
 
 ##### En chainé les Pipes
@@ -344,7 +344,7 @@ Le pipe `async` permet de `gérer des données asynchrones`, par exemple `des do
 exemple :
 on va simuler le comportement d'un serveur en créant une Promise qui va se résoudre au bout de quelques secondes.
 
-dans app.component.ts :
+dans `app.component.ts` :
 
     lastUpdate = new Promise((resolve, reject) => {
       const date = new Date();
@@ -357,7 +357,7 @@ dans app.component.ts :
 
     });
 
-puis dans app.component.html :
-    <p>Mis à jour : {{ lastUpdate | async | date: 'yMMMMEEEEd' | uppercase }}</p>
+puis dans `app.component.html` :
+    < p >Mis à jour : {{ lastUpdate | async | date: 'yMMMMEEEEd' | uppercase }}< / p >
 
 `Maintenant`, quand la page recharge, `le champ` "Mis à jour" est vide et puis, au bout de deux secondes, `les données retournées par la Promise sont reçues, modifiées par les pipes suivants, et affichées.`
