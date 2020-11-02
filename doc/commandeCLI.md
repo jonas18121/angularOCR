@@ -44,19 +44,19 @@ avec ng generate on peut l'associer avec ces argument :
 
 créer un nouveau `Component` : 
         
-        ng generate component mon-premier` ou `ng g c mon-premier
+        ng generate component mon-premier ou ng g c mon-premier
 
 créer une `Directive` personaliser : 
         
-        ng generate directive nom_de_directive` ou `ng g d nom_de_directive
+        ng generate directive nom_de_directive ou ng g d nom_de_directive
 
 créer une `Pipe` personaliser : 
         
-        ng generate pipe nom_de_pipe` ou `ng g p nom_de_pipe
+        ng generate pipe nom_de_pipe ou ng g p nom_de_pipe
 
 créer un `Service` personaliser : 
         
-        ng generate service nom_de_service` ou `ng g s nom_de_service
+        ng generate service nom_de_service ou ng g s nom_de_service
 
 créer une `Class` personaliser : 
         
@@ -64,11 +64,11 @@ créer une `Class` personaliser :
 
 créer un `Guard` personaliser : 
         
-        ng generate guard guard/nom_de_guard` ou `ng g g guard/nom_de_guard
+        ng generate guard guard/nom_de_guard ou ng g g guard/nom_de_guard
 
 créer une `Interface` personaliser : 
         
-        ng generate interface nom_de_interface` ou `ng g i nom_de_interface
+        ng generate interface nom_de_interface ou ng g i nom_de_interface
 
 créer un `Enum` personaliser : 
         
