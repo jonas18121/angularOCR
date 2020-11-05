@@ -13,12 +13,16 @@ import { LOCALE_ID } from '@angular/core';
 import { AppComponent } from './app.component';
 import { MonPremierComponent } from './mon-premier/mon-premier.component';
 import { AppareilComponent } from './appareil/appareil.component';
+import { PostListComponent } from './post/post-list/post-list.component';
+import { PostListItemComponent } from './post/post-list-item/post-list-item.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MonPremierComponent,
-    AppareilComponent
+    AppareilComponent,
+    PostListComponent,
+    PostListItemComponent
   ],
   imports: [
     BrowserModule,

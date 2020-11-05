@@ -47,6 +47,34 @@ export class AppComponent
     }
   ];
 
+  // exo, tableau de posts
+  posts = [
+    {
+      title: 'post 1',
+      content: 'mon premier post mon premier post mon premier post mon premier post mon premier post mon premier post',
+      loveIts: '1' ,
+      iLove: '90',
+      iDontLove: '85',
+      created_at: new Date()
+    },
+    {
+      title: 'post 2',
+      content: 'mon deuxième post mon deuxième post  mon deuxième post mon deuxième post mon deuxième post mon deuxième post mon deuxième post mon deuxième post',
+      loveIts: '-1',
+      iLove: '50',
+      iDontLove: '60',
+      created_at: new Date()
+    },
+    {
+      title: 'post 3',
+      content: 'mon troisième post mon troisième post mon troisième post mon troisième post mon troisième post mon troisième post mon troisième post mon troisième post',
+      loveIts: '0',
+      iLove: '0',
+      iDontLove: '0',
+      created_at: new Date()
+    }
+  ];
+
 
   constructor(){
 
