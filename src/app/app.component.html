@@ -353,7 +353,7 @@
           <app-appareil [appareilName]="appareilThree" [appareilStatus]="'éteint'"></app-appareil>
           <app-appareil [appareilName]="appareilFour" [appareilStatus]="'en panne'"></app-appareil>
           
-          <!-- comme une boucle for -->
+          <!-- comme une boucle foreach -->
           <app-appareil *ngFor="let appareil of appareils" 
                         [appareilName]="appareil.name" 
                         [appareilStatus]="appareil.status"
@@ -361,6 +361,10 @@
         </ul>
         <!-- on lie la propriété disabled a la variable isAuth grace au crochets -> [disabled] -->
         <button class="btn btn-success" [disabled]="!isAuth" (click)='onAllume()'>Tout allumer</button>
+        <!-- création de liste de de message <app-post-list-component></app-post-list-component> -->
+        <app-post-list [lastUpdate]="lastUpdate" [posts]="posts"></app-post-list>
+
+        
       </div>
     </div>
   </div>

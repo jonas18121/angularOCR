@@ -34,20 +34,20 @@ Le dossier  `node_modules`  contient toutes les dépendances pour votre applicat
 
 ## déclaration de variable
 
-    dans fichier xxx.component.ts , on declare une variable dans la class exemple, nomDeVariable : string = 'valeur de la variable';
+  dans fichier xxx.component.ts , on declare une variable dans la class exemple, `nomDeVariable : string = 'valeur de la variable';`
 
-    dans fichier xxx.component.html , on affiche une variable avec les accolades exemple {{ nomDeVariable }}
+  dans fichier xxx.component.html , on affiche une variable avec les accolades exemple `{{ nomDeVariable }}`
 
 
 ## déclaration de function
 
-    dans fichier xxx.component.ts , on declare une function dans la class exemple :
+  dans fichier xxx.component.ts , on declare une function dans la class exemple :
       getFunction()
-    {
-      return this.nomDeVariable;
-    }
+      {
+        return this.nomDeVariable;
+      }
 
-    dans fichier xxx.component.html , on affiche une getFunction() avec les accolades exemple {{ getFunction() }}
+  dans fichier xxx.component.html , on affiche une getFunction() avec les accolades exemple `{{ getFunction() }}`
 
 
 ## Property binding
@@ -56,7 +56,8 @@ Le dossier  `node_modules`  contient toutes les dépendances pour votre applicat
 
 exemple :
 
-  `on lie la propriété` disabled qui est dans le `fichier app.component.html`, `à la variable` isAuth `qui est dans le fichier app.component.ts grace au crochets` -> [disabled], ce qui `permet a la variable` isAuth `d'influencer sur la propriété` disabled
+  `on lie la propriété` disabled qui est dans le `fichier app.component.html`, `à la variable` isAuth `qui est dans le fichier app.component.ts grace au crochets` -> [disabled], ce qui `permet a la variable` isAuth `d'influencer sur la propriété` disabled :
+  
   `<button [disabled]="!isAuth">Tout allumer</button>`
 
 
