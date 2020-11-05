@@ -1,8 +1,7 @@
 <li [ngClass]="{
     'list-group-item' : true,
-    'list-group-item-success' : post.loveIts > '0',
-    'list-group-item-danger' : 0 > post.loveIts,
-    'list-group-item-secondary' : post.loveIts == '0'
+    'list-group-item-success' : post.iLove > post.iDontLove,
+    'list-group-item-danger' : post.iDontLove > post.iLove
 }">
     <p>{{ post.title  }} {{ post.created_at | date: 'EEEE d MMMM  y, h:mm:ss ' : 'fr' }}</p>
     <p>{{ post.content }}</p>

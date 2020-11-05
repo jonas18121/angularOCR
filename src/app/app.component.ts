@@ -52,7 +52,7 @@ export class AppComponent
     {
       title: 'post 1',
       content: 'mon premier post mon premier post mon premier post mon premier post mon premier post mon premier post',
-      loveIts: '1' ,
+      loveIts: '5' ,
       iLove: '90',
       iDontLove: '85',
       created_at: new Date()
@@ -60,7 +60,7 @@ export class AppComponent
     {
       title: 'post 2',
       content: 'mon deuxième post mon deuxième post  mon deuxième post mon deuxième post mon deuxième post mon deuxième post mon deuxième post mon deuxième post',
-      loveIts: '-1',
+      loveIts: '-10',
       iLove: '50',
       iDontLove: '60',
       created_at: new Date()
