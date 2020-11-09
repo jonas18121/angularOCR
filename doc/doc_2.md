@@ -66,4 +66,31 @@ exemple : dans le component AppComponent :
         );
     }
 
+##### ngOnInit()
+
+`ngOnInit()  correspond à une "lifecycle hook"`, 
+la méthode  ngOnInit()  d'un component est exécutée une fois par instance,
+`au moment de la création du component par Angular, et après son constructeur.` 
+On l'utilise très souvent pour initialiser des données une fois le component créé
+
+`Il faut importé OnInit dans le component précis et l'implémenté dans la classe en question pour utiliser ngOnInit() `: 
+
+    import { Component, OnInit } from '@angular/core';
+    import { AppareilService } from './services/appareil.service';
+
+    @Component({
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss']
+    })
+    export class AppComponent implements OnInit {
+
+        constructor(private appareilService : AppareilService){}
+
+        ngOnInit() {
+            this.appareils = this.appareilService.appareils;
+        }
+    }
+
+
 
