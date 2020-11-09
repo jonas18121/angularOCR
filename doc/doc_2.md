@@ -51,8 +51,12 @@ puis en le mettant dans le `providers de appModule`, afin que ce `service soit u
 #### intégrer un services dans un component 
 
 Pour intégrer un service `dans un component, on déclare le service comme argument dans le constructeur du component`.
+avec l'import qui convient
 
 exemple : dans le component AppComponent :
+
+    
+    import { AppareilService } from './services/appareil/appareil.service';
 
     constructor(private appareilService: AppareilService) {
         setTimeout(

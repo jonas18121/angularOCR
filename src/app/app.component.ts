@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { AppareilService } from './services/appareil/appareil.service';
 // les import doivent être toujours ecrit en 1er, afin d'évité des erreurs
+
 // component de base
 @Component({
   selector: 'app-root',
@@ -76,7 +78,7 @@ export class AppComponent
   ];
 
 
-  constructor(){
+  constructor(private appareilService : AppareilService){
 
     /** 
      * permet à la variable isAuth de passer à true dans 4 secondes
