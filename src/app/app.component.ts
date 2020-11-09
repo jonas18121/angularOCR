@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AppareilService } from './services/appareil/appareil.service';
 // les import doivent être toujours ecrit en 1er, afin d'évité des erreurs
 
@@ -8,7 +8,7 @@ import { AppareilService } from './services/appareil/appareil.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent 
+export class AppComponent implements OnInit
 {
   title = 'angularOCR ;-)';
 
@@ -34,20 +34,7 @@ export class AppComponent
   appareilThree = 'lave linge';
   appareilFour = 'micro onde';
 
-  appareils = [
-    {
-      name : 'télévision',
-      status : 'éteint'
-    },
-    {
-      name : 'ordinateur',
-      status : 'allumé'
-    },
-    {
-      name : 'radio',
-      status : 'en panne'
-    }
-  ];
+  appareils: any[];
 
   // exo, tableau de posts
   posts = [
@@ -78,26 +65,24 @@ export class AppComponent
   ];
 
 
-  constructor(private appareilService : AppareilService){
+    constructor(private appareilService : AppareilService){
 
-    /** 
-     * permet à la variable isAuth de passer à true dans 4 secondes
-     */
-    setTimeout( 
+        /** 
+         * permet à la variable isAuth de passer à true dans 4 secondes
+         */
+        setTimeout( 
+            () => { 
+                this.isAuth = true ; 
+            } , 4000
+        );
+    }
 
-      () => { 
+    ngOnInit(){
+        this.appareils = this.appareilService.appareils;
+    }
 
-        this.isAuth = true ; 
-
-      } , 4000
-
-    );
-
-    
-  }
-
-  onAllume(){
-    alert('on allume tout !');
-  }
+    onAllume(){
+        alert('on allume tout !');
+    }
 
 }
