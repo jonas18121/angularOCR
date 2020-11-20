@@ -3,7 +3,7 @@
 un `service permet de centraliser des parties de votre code et des données` qui sont utilisées par plusieurs parties de votre application ou
 `de manière globale par l'application entière.` 
 
-Lesrvices permettent : 
+Les services permettent : 
 
    - `de ne pas avoir le même code doublé ou triplé à différents niveaux de l'application` - ça facilite donc la maintenance, la lisibilité et la stabilité du code .
 
@@ -18,7 +18,7 @@ Il y a `trois niveaux possibles pour cette injection` :
 
    - 1 - `dans  AppModule`  : ainsi, `la même instance du service` sera utilisée par `tous les components de l'application et par les autres services` ;
 
-   - 2 - `dans  AppComponent`  : comme ci-dessus, `tous les components` auront accès à `la même instance du service` mais `pas les autres services` ;
+   - 2 - `dans  AppComponent`  : comme ci-dessus, `tous les components` auront accès à `la même instance du service` mais ` les autres services n'auront pas accès à ce service ` ;
 
    - 3 - `dans un autre component` : le `component lui-même et tous ses enfants`
     (c'est-à-dire tous les components qu'il englobe) auront accès à la même instance du service, `mais le reste de l'application n'y aura pas accès`.
@@ -26,8 +26,8 @@ Il y a `trois niveaux possibles pour cette injection` :
 exemples :
 
 on crée un `sous-dossier services` dans le dossier `app/` ,et on crée un nouveau fichier appelé `appareil.services.ts`, puis on ecrit ça dedans :
-
-    si on crée le services directement en ligne commande, ça sera déjà créer
+    
+`PS :`si on crée le services directement en ligne commande, ça sera déjà créer
 
     export class AppareilService {
   
