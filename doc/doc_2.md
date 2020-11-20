@@ -93,4 +93,70 @@ On l'utilise très souvent pour initialiser des données une fois le component c
     }
 
 
+##### Faire communiquer les components enfants et leur parent et un services
 
+Dans un premier temps, il faudra que chaque instance du xxx.component.ts  
+puisse dire au service  xxx.Service.ts à quel index de l'array elle correspond dans une base de donnée par exemple.
+on fait ça *ngFor 
+
+exemple :
+    < app-appareil  `*ngFor=`"let appareil of appareils; `let i = index`"
+                   [ appareilName]="appareil.name"
+                   [ appareilStatus]="appareil.status"></ app-appareil>
+
+
+puis pour travailler avec la variable `index` on va utiliser le property binding dans
+le xxx.component.ts correspondant :
+
+    @Input() index: number;
+
+puis `on lie l'index i depuis le template xxx.component.html` correspondant
+
+exemple : 
+    < app-appareil  *ngFor="let appareil of appareils; let i = index"
+                   [ appareilName]="appareil.name"
+                   [ appareilStatus]="appareil.status" 
+                   `[ index]="i"`></ app-appareil>
+
+À partir de là, `on a une variable  index  disponible à l'intérieur du component qui correspond à l'index de l'appareil dans l'array du service  xxx.Service.ts`
+
+Dans  AppareilService , on créer les méthodes permettant d'allumer ou d'éteindre un seul appareil `en fonction de son index dans l'array  appareils`  :
+
+    switchOnOne(i: number) {
+        this.appareils[i].status = 'allumé';
+    }
+
+    switchOffOne(i: number) {
+        this.appareils[i].status = 'éteint';
+    }
+
+
+Ensuite, dans  xxx.component.ts , vous allez d'abord intégrer le service  xxx.Service.ts, en l'important en haut du fichier comme toujours :
+
+exemple:
+    `constructor(private appareilService: AppareilService) { }`
+
+Puis vous allez préparer la méthode qui, en fonction du statut actuel de l'appareil, l'allumera ou l'éteindra :
+
+
+    onSwitch() {
+        if(this.appareilStatus === 'allumé') {
+            this.appareilService.switchOffOne(this.index);
+        } else if(this.appareilStatus === 'éteint') {
+            this.appareilService.switchOnOne(this.index);
+        }
+    }
+
+
+Enfin, vous allez créer le bouton dans le template qui déclenchera cette méthode.  Il serait intéressant que ce bouton soit contextuel : si l'appareil est allumé, il affichera "Éteindre" et inversement.  Pour cela, le plus simple est de créer deux boutons dotés de la directive  *ngIf  : 
+
+exemple : 
+    < button class="btn btn-sm btn-success"
+          *ngIf="appareilStatus === 'éteint'"
+          (click)="onSwitch()">Allumer</ button>
+
+    < button class="btn btn-sm btn-danger"
+          *ngIf="appareilStatus === 'allumé'"
+          (click)="onSwitch()">Eteindre</ button>
+
+Et voilà !  Vos components communiquent entre eux à l'aide du service,
