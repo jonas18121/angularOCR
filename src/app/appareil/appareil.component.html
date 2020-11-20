@@ -26,4 +26,16 @@
                 }" 
     >Appareil : {{ appareilName }} -- Status : {{ getStatus() }} </h4>
     <input type="text" [(ngModel)]="appareilName">
+
+    <button class="btn btn-sm btn-success"
+        *ngIf="appareilStatus === 'éteint'"
+        (click)="onSwitch()">
+        Allumer
+    </button>
+
+    <button class="btn btn-sm btn-danger"
+        *ngIf="appareilStatus === 'allumé'"
+        (click)="onSwitch()">
+        Eteindre
+    </button>
 </li>

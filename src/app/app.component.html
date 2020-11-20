@@ -347,20 +347,24 @@
 
         <p>Mis à jour : {{ lastUpdate | async | date: 'full' : 'fr' | uppercase }}</p>
 
+        <h3>Fait de maniere statique</h3>
         <ul class="list-group">
           <app-appareil [appareilName]="appareilOne" [appareilStatus]="'éteint'"></app-appareil>
           <app-appareil [appareilName]="appareilTwo" [appareilStatus]="'allumé'"></app-appareil>
           <app-appareil [appareilName]="appareilThree" [appareilStatus]="'éteint'"></app-appareil>
           <app-appareil [appareilName]="appareilFour" [appareilStatus]="'en panne'"></app-appareil>
           
+          <h3>Fait de maniere dynamique</h3>
           <!-- comme une boucle foreach -->
-          <app-appareil *ngFor="let appareil of appareils" 
+          <app-appareil *ngFor="let appareil of appareils; let i = index " 
                         [appareilName]="appareil.name" 
                         [appareilStatus]="appareil.status"
+                        [index]="i"
           ></app-appareil>
         </ul>
         <!-- on lie la propriété disabled a la variable isAuth grace au crochets -> [disabled] -->
         <button class="btn btn-success" [disabled]="!isAuth" (click)='onAllume()'>Tout allumer</button>
+        <button class="btn btn-danger" [disabled]="!isAuth" (click)='onEteindre()'>Tout éteindre</button>
         <!-- création de liste de de message <app-post-list-component></app-post-list-component> -->
         <app-post-list [lastUpdate]="lastUpdate" [posts]="posts"></app-post-list>
 
