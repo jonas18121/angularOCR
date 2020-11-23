@@ -19,6 +19,8 @@ import { MonPremierComponent } from './mon-premier/mon-premier.component';
 import { AppareilComponent } from './appareil/appareil.component';
 import { PostListComponent } from './post/post-list/post-list.component';
 import { PostListItemComponent } from './post/post-list-item/post-list-item.component';
+import { AuthComponent } from './auth/auth.component';
+import { AppareilViewComponent } from './appareil-view/appareil-view.component';
 
 
 ////////////////////// S E R V I C E S //////////////////////
@@ -31,7 +33,9 @@ import { AppareilService } from './services/appareil/appareil.service';
     MonPremierComponent,
     AppareilComponent,
     PostListComponent,
-    PostListItemComponent
+    PostListItemComponent,
+    AuthComponent,
+    AppareilViewComponent
   ],
   imports: [
     BrowserModule,
