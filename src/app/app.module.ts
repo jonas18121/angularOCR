@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Routes, RouterModule } from '@angular/router';
 
 
 ////////////////////// D A T E   F R //////////////////////
@@ -26,6 +27,13 @@ import { AppareilViewComponent } from './appareil-view/appareil-view.component';
 ////////////////////// S E R V I C E S //////////////////////
 import { AppareilService } from './services/appareil/appareil.service';
 
+const appRoutes: Routes = [
+
+    {path: 'appareils', component: AppareilViewComponent},
+    {path: 'auth', component: AuthComponent},
+    {path: '', component: AppareilViewComponent}
+];
+
 
 @NgModule({
   declarations: [
@@ -39,7 +47,8 @@ import { AppareilService } from './services/appareil/appareil.service';
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [
     {
