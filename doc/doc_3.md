@@ -56,3 +56,12 @@ exemple :
 Lorsque vous changez de route (pour l'instant, en modifiant l'URL directement dans la barre d'adresse du navigateur), la page n'est pas rechargée, mais le contenu sous la barre de navigation change
 
 ---------------------------------------
+
+## Naviguer avec les routerLink
+
+Pour `naviguer dans l'application en mode Single Page App (SPA)`, il faut `remplacer` l'attribut `href` qui ce trouve `dans` la balise `< a>` , par `routerLink`.
+    `<a href="auth">Authentification</a>`       - recharge la page 
+    `<a routerLink="auth">Authentification</a>` - ne recharge pas la page , un peut comme ajax
+
+`routerLinkActive` permet de mettre en surbriallance la page qui est réellement actif dans la navbar
+    `< li routerLinkActive="active"><a routerLink="auth">Authentification</ a></ li>`
