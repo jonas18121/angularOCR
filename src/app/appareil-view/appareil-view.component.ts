@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AppareilService } from '../services/appareil/appareil.service';
 
 @Component({
@@ -10,7 +10,10 @@ export class AppareilViewComponent implements OnInit {
 
     title = 'angularOCR ;-)';
 
-  isAuth = false;
+    isAuth = false;
+
+    
+    @Input() id: number;
 
   /**
    * on va faire une Promise pour imiter un serveur afin de

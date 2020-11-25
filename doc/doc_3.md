@@ -69,3 +69,78 @@ Pour `naviguer dans l'application en mode Single Page App (SPA)`, il faut `rempl
 ### .navigate()
 
 this.router.navigate(['appareils']); permet de créer des chemins à partir de variables
+
+## Route paramétrer
+
+dans appModules
+.
+    const appRoutes: Routes = [
+        { path: 'appareils', component: AppareilViewComponent },
+        `{ path: 'appareils/:id', component: SingleAppareilComponent },`
+        { path: 'auth', component: AuthComponent },
+        { path: '', component: AppareilViewComponent }
+    ];
+
+L'utilisation des `deux-points  : `  = tous les chemins de type appareils/*  seront renvoyés vers  SingleAppareilComponent
+
+dans le component xxx.component.ts (SingleAppareilComponent ) qui représentera l'object 
+`injecter  ActivatedRoute , importé depuis  @angular/router` , afin de récupérer le fragment  id  de l'URL :
+Puis, `dans  ngOnInit() , vous allez utiliser l'objet  snapshot`
+
+exemple:
+    constructor(private appareilService: AppareilService,
+        `private route: ActivatedRoute`) { }
+.
+    ngOnInit() {
+        `this.name = this.route.snapshot.params['id'];`
+    }
+
+dans AppareilService
+on crée une méthode qui rendra l'appareil correspondant à un identifiant 
+
+    getAppareilById(id: number) 
+    {
+        const appareil = this.appareils.find(
+            (my_id) => {
+                return my_id.id === id;
+            }
+        );
+        return appareil;
+    }
+
+
+dans SingleAppareilComponent 
+    ngOnInit() {
+        const id = this.route.snapshot.params['id'];
+        this.name = this.appareilService.getAppareilById(+id).name;
+        this.status = this.appareilService.getAppareilById(+id).status;
+    }
+
+`Puisqu'un fragment d'URL est forcément de type  string , `
+`et que la méthode  getAppareilById()  prend un nombre comme argument,` 
+`il ne faut pas oublier d'utiliser  +  avant  id  dans l'appel pour caster la variable comme nombre.`
+
+
+on va intégrer l'identifiant unique dans  `AppareilComponent  et dans  AppareilViewComponent , puis créez un  routerLink  pour chaque appareil` qui permet d'en regarder le détail : 
+
+dans AppareilComponent et AppareilViewComponent
+    @Input() id: number;
+
+dans Appareil-view.component.html
+    < ul class="list-group">
+        < app-appareil  *ngFor="let appareil of appareils; let i = index"
+            [appareilName]="appareil.name"
+            [appareilStatus]="appareil.status"
+            [index]="i" 
+            [id]="appareil.id">
+        </ app-appareil>
+    < /ul>
+
+dans Appareil.component.html
+    < h4 [ngStyle]="{color: getColor()}">
+        Appareil : {{ appareilName }} -- Statut : {{ getStatus() }}
+    < /h4>
+    < a [routerLink]="[id]">Détail< /a>
+
+on peut utilisez le format array pour  routerLink  en property binding afin d'accéder à la variable  id  .
+
