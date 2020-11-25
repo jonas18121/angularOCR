@@ -65,3 +65,7 @@ Pour `naviguer dans l'application en mode Single Page App (SPA)`, il faut `rempl
 
 `routerLinkActive` permet de mettre en surbriallance la page qui est réellement actif dans la navbar
     `< li routerLinkActive="active"><a routerLink="auth">Authentification</ a></ li>`
+
+### .navigate()
+
+this.router.navigate(['appareils']); permet de créer des chemins à partir de variables
