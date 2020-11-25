@@ -7,16 +7,19 @@ export class AppareilService {
 
     appareils = [
         {
-        name : 'télévision',
-        status : 'éteint'
+            id: 1,
+            name : 'télévision',
+            status : 'éteint'
         },
         {
-        name : 'ordinateur',
-        status : 'allumé'
+            id: 2,
+            name : 'ordinateur',
+            status : 'allumé'
         },
         {
-        name : 'radio',
-        status : 'en panne'
+            id: 3,
+            name : 'radio',
+            status : 'en panne'
         }
     ];
 
@@ -45,5 +48,13 @@ export class AppareilService {
         this.appareils[i].status = 'éteint';  
     }
 
-
+    getAppareilById(id: number) 
+    {
+        const appareil = this.appareils.find(
+            (my_id) => {
+                return my_id.id === id;
+            }
+        );
+        return appareil;
+    }
 }

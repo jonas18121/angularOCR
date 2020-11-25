@@ -26,10 +26,12 @@ import { AppareilViewComponent } from './appareil-view/appareil-view.component';
 
 ////////////////////// S E R V I C E S //////////////////////
 import { AppareilService } from './services/appareil/appareil.service';
+import { SingleAppareilComponent } from './single-appareil/single-appareil.component';
 
 const appRoutes: Routes = [
 
     {path: 'appareils', component: AppareilViewComponent},
+    {path: 'appareils/:id', component: SingleAppareilComponent},
     {path: 'auth', component: AuthComponent},
     {path: '', component: AppareilViewComponent}
 ];
@@ -43,7 +45,8 @@ const appRoutes: Routes = [
     PostListComponent,
     PostListItemComponent,
     AuthComponent,
-    AppareilViewComponent
+    AppareilViewComponent,
+    SingleAppareilComponent
   ],
   imports: [
     BrowserModule,
