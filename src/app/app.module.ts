@@ -1,6 +1,6 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { BrowserModule }        from '@angular/platform-browser';
+import { NgModule }             from '@angular/core';
+import { FormsModule }          from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 
@@ -15,25 +15,30 @@ registerLocaleData(localeFr, 'fr');
 import { LOCALE_ID } from '@angular/core';
 
 ////////////////////// C O M P O N E N T //////////////////////
-import { AppComponent } from './app.component';
-import { MonPremierComponent } from './mon-premier/mon-premier.component';
-import { AppareilComponent } from './appareil/appareil.component';
-import { PostListComponent } from './post/post-list/post-list.component';
-import { PostListItemComponent } from './post/post-list-item/post-list-item.component';
-import { AuthComponent } from './auth/auth.component';
-import { AppareilViewComponent } from './appareil-view/appareil-view.component';
+import { AppComponent }                 from './app.component';
+import { MonPremierComponent }          from './mon-premier/mon-premier.component';
+import { AppareilComponent }            from './appareil/appareil.component';
+import { PostListComponent }            from './post/post-list/post-list.component';
+import { PostListItemComponent }        from './post/post-list-item/post-list-item.component';
+import { AuthComponent }                from './auth/auth.component';
+import { AppareilViewComponent }        from './appareil-view/appareil-view.component';
+import { SingleAppareilComponent }      from './single-appareil/single-appareil.component';
+import { FourOhFourComponent }          from './four-oh-four/four-oh-four.component';
 
 
 ////////////////////// S E R V I C E S //////////////////////
-import { AppareilService } from './services/appareil/appareil.service';
-import { SingleAppareilComponent } from './single-appareil/single-appareil.component';
+import { AppareilService }      from './services/appareil/appareil.service';
+import { AuthService }          from './services/auth/auth.service';
+import { AuthGuardService }     from './services/guards/auth-guard.service';
 
 const appRoutes: Routes = [
 
-    {path: 'appareils', component: AppareilViewComponent},
-    {path: 'appareils/:id', component: SingleAppareilComponent},
+    {path: 'appareils', canActivate: [AuthGuardService], component: AppareilViewComponent},
+    {path: 'appareils/:id',canActivate: [AuthGuardService], component: SingleAppareilComponent},
     {path: 'auth', component: AuthComponent},
-    {path: '', component: AppareilViewComponent}
+    {path: '', component: AppareilViewComponent},
+    {path: 'not-found', component: FourOhFourComponent},
+    {path: '**', redirectTo: 'not-found'}
 ];
 
 
@@ -46,7 +51,8 @@ const appRoutes: Routes = [
     PostListItemComponent,
     AuthComponent,
     AppareilViewComponent,
-    SingleAppareilComponent
+    SingleAppareilComponent,
+    FourOhFourComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +64,9 @@ const appRoutes: Routes = [
       provide: LOCALE_ID, 
       useValue: 'fr'
     },
-    AppareilService
+    AppareilService,
+    AuthService,
+    AuthGuardService
   ],
   bootstrap: [AppComponent]
 })

@@ -70,6 +70,8 @@ Pour `naviguer dans l'application en mode Single Page App (SPA)`, il faut `rempl
 
 this.router.navigate(['appareils']); permet de créer des chemins à partir de variables
 
+-----------------------------------------------------------
+
 ## Route paramétrer
 
 dans appModules
@@ -144,3 +146,81 @@ dans Appareil.component.html
 
 on peut utilisez le format array pour  routerLink  en property binding afin d'accéder à la variable  id  .
 
+---------------------------------------------------------
+## Redirection
+
+Il peut y avoir des cas de figure où l'on souhaiterait `rediriger un utilisateur,` 
+par exemple pour `afficher une page 404 lorsqu'il entre une URL qui n'existe pas.`
+
+Pour l'application des appareils électriques, `on commence par créer un` 
+`component 404 très simple, appelé  four-oh-four.component.ts ` :
+
+
+Ensuite, on va ajouter la route "directe" vers cette page, ainsi qu'une route "wildcard", qui redirigera toute route inconnue vers la page d'erreur :
+
+
+const appRoutes: Routes = [
+  { path: 'appareils', component: AppareilViewComponent },
+  { path: 'appareils/:id', component: SingleAppareilComponent },
+  { path: 'auth', component: AuthComponent },
+  { path: '', component: AppareilViewComponent },
+  `{ path: 'not-found', component: FourOhFourComponent },`
+  `{ path: '**', redirectTo: 'not-found' }`
+];
+
+Ainsi, quand on entre un chemin dans la barre de navigation qui n'est pas directement pris en charge par mon application, on est redirigé vers  /not-found  et donc le component 404.
+
+------------------------------------------------
+## Guards
+
+Une guard est un service qu'Angular exécutera au moment où l'utilisateur essaye de naviguer vers la route sélectionnée.
+`Ce service implémente l'interface  canActivate` , et donc doit contenir
+une méthode du même nom `qui prend les arguments  ActivatedRouteSnapshot  et  RouterStateSnapshot`  (qui lui seront fournis par Angular au moment de l'exécution) et `retourne une valeur booléenne`, soit `de manière synchrone (boolean)`, soit `de manière asynchrone (sous forme de Promise ou d'Observable)`
+
+
+exemple
+
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot,  Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { AuthService } from '../auth/auth.service';
+
+@Injectable({providedIn: 'root'})
+
+export class AuthGuardService implements CanActivate {
+
+    constructor(private authService : AuthService, private router: Router) { }
+.
+    canActivate(
+        route: ActivatedRouteSnapshot, 
+        state: RouterStateSnapshot
+    ): Observable <boolean> | Promise <boolean> | boolean
+    {
+        if (this.authService.isAuth) {
+            return true;
+        }else{
+            `this.router.navigate(['/auth']);`
+        }
+    }
+
+    ngOnInit()
+    {
+
+    }
+} 
+
+`Pour appliquer cette garde à la route  /appareils  et à toutes ses routes enfants`, 
+`il faut l'ajouter dans  AppModule .  N'oubliez pas d'ajouter  AuthGuardService  à l'array  providers` , puisqu'il s'agit d'un service :
+
+const appRoutes: Routes = [
+  { path: 'appareils', canActivate: [AuthGuard], component: AppareilViewComponent },
+  { path: 'appareils/:id', canActivate: [AuthGuard], component: SingleAppareilComponent },
+  { path: 'auth', component: AuthComponent },
+  { path: '', component: AppareilViewComponent },
+  { path: 'not-found', component: FourOhFourComponent },
+  { path: '**', redirectTo: 'not-found' }
+];
+
+Maintenant, si vous essayez d'accéder à  /appareils  sans être authentifié, vous êtes `automatiquement redirigé vers  /auth` .  Si vous cliquez sur "Se connecter", vous pouvez accéder à la liste d'appareils sans problème.
+
+La route  /appareils  étant protégée, vous pouvez retirer les liaisons  disabled  des boutons "Tout allumer" et "Tout éteindre", car vous pouvez être certain que tout utilisateur accédant à cette route sera authentifié.
