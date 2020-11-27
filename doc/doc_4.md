@@ -149,3 +149,189 @@ export class AppComponent implements OnInit, OnDestroy
 }
 
 La fonction  `unsubscribe()  détruit la souscription` et empêche les comportements inattendus liés aux Observables infinis, donc n'oubliez pas de unsubscribe !
+
+
+
+## Subjects
+
+`Il existe un type d'Observable qui permet non seulement de réagir à de nouvelles informations, mais également d'en émettre.`
+
+Imaginez une variable dans un service, par exemple, `qui peut être modifié depuis plusieurs components` ET qui fera `réagir tous les components` qui y sont liés en même temps.  `Voici l'intérêt des Subjects`.
+
+plusieurs étapes à faire : 
+.
+    - rendre `private l'array des appareils`, dans AppareilService
+.
+    - `créer un Subject dans le service`, dans AppareilService
+.
+    - `créer une méthode (exemple : emitAppareilSubject() ) ` dans AppareilService
+        qui réagit lorsque le service reçoit de nouvelles données, 
+        puis qui émet ces données par le Subject et 
+        qui appele cette méthode dans toutes les méthodes qui en ont besoin ;
+.
+    - `souscrire à ce Subject  pour recevoir les données émises`, dans AppareilViewComponent
+        qui émet les premières données, 
+        et qui implémente  OnDestroy  pour détruire la souscription.
+
+exemple 
+
+dans AppareilService
+    import { Injectable } from '@angular/core';
+`    import { Subject } from 'rxjs/Subject';`
+
+    @Injectable({
+        providedIn: 'root'
+    })
+    export class AppareilService {
+
+`        appareilsSubject = new Subject <any[]> ();`
+
+`        private appareils = [`
+            {
+                id: 1,
+                name : 'télévision',
+                status : 'éteint'
+            },
+            {
+                id: 2,
+                name : 'ordinateur',
+                status : 'allumé'
+            },
+            {
+                id: 3,
+                name : 'radio',
+                status : 'en panne'
+            }
+        ];
+
+        constructor() { }
+
+`        emitAppareilSubject()`
+        {
+`            this.appareilsSubject.next(this.appareils.slice());`
+        }
+    }
+
+
+
+dans AppareilViewComponent 
+`    import { Component, OnInit, Input, OnDestroy } from '@angular/core';`
+`    import { Subscription } from 'rxjs/Subscription';`
+    import { AppareilService } from '../services/appareil/appareil.service';
+
+    @Component({
+    selector: 'app-appareil-view',
+    templateUrl: './appareil-view.component.html',
+    styleUrls: ['./appareil-view.component.scss']
+    })
+    export class AppareilViewComponent implements OnInit, OnDestroy {
+
+        title = 'angularOCR ;-)';
+
+        isAuth = false;
+
+`        appareils: any[];`
+`        appareilSubscription: Subscription;`
+
+        
+        @Input() id: number;
+
+    /**
+    * on va faire une Promise pour imiter un serveur afin de
+    * pouvoir utiliser le Pipe async
+    */
+    lastUpdate = new Promise((resolve, reject) => {
+
+        const date = new Date();
+
+        //affiche la date après 2 secondes
+        setTimeout(() => {
+        resolve(date);
+        }, 2000);
+        
+    });
+
+    appareilOne = 'machine à laver';
+    appareilTwo = 'frigo';
+    appareilThree = 'lave linge';
+    appareilFour = 'micro onde';
+
+    // exo, tableau de posts
+    posts = [
+        {
+        title: 'post 1',
+        content: 'mon premier post mon premier post mon premier post mon premier post mon premier post mon premier post',
+        loveIts: '5' ,
+        iLove: '90',
+        iDontLove: '85',
+        created_at: new Date()
+        },
+        {
+        title: 'post 2',
+        content: 'mon deuxième post mon deuxième post  mon deuxième post mon deuxième post mon deuxième post mon deuxième post mon deuxième post mon deuxième post',
+        loveIts: '-10',
+        iLove: '50',
+        iDontLove: '60',
+        created_at: new Date()
+        },
+        {
+        title: 'post 3',
+        content: 'mon troisième post mon troisième post mon troisième post mon troisième post mon troisième post mon troisième post mon troisième post mon troisième post',
+        loveIts: '0',
+        iLove: '0',
+        iDontLove: '0',
+        created_at: new Date()
+        }
+    ];
+
+
+        constructor(private appareilService : AppareilService)
+        {
+            setTimeout( 
+                () => { 
+                    this.isAuth = true ; // permet à la variable isAuth de passer à true dans 4 secondes
+                } , 4000
+            );
+        }
+
+        ngOnInit(){
+            this.appareilSubscription = this.appareilService.appareilsSubject.subscribe(
+
+                (appareils: any[] ) => {
+                    this.appareils = appareils;
+                }
+            );
+`            this.appareilService.emitAppareilSubject();`
+        }
+
+`        ngOnDestroy()`
+        {
+`            this.appareilSubscription.unsubscribe();`
+        }
+
+
+
+## Opérateur
+
+`Un opérateur est une fonction qui se place entre l'Observable et l'Observer` (la Subscription, par exemple), 
+et qui peut filtrer et/ou modifier les données reçues avant même qu'elles n'arrivent à la Subscription.  
+
+Voici quelques exemples rapides :
+.
+    - `map()`  : modifie les valeurs reçues — 
+        peut effectuer des calculs sur des chiffres, 
+        transformer du texte, 
+        créer des objets…
+.
+    - `filter()`  :  filtre les valeurs reçues selon la fonction qu'on lui passe en argument.
+.
+    - `throttleTime()`  : impose un délai minimum entre deux valeurs — par exemple, 
+        si un Observable émet cinq valeurs par seconde, mais ce sont uniquement les valeurs reçues toutes les secondes qui vous intéressent, 
+        vous pouvez passer  throttleTime(1000)  comme opérateur.
+.
+    - `scan()  et  reduce()`  : permettent d'exécuter une fonction qui réunit 
+        l'ensemble des valeurs reçues selon une fonction que vous lui passez — par exemple, 
+            vous pouvez faire la somme de toutes les valeurs reçues.    
+        La différence basique entre les deux opérateurs :   
+            reduce()  vous retourne uniquement la valeur finale, 
+            alors que  scan()  retourne chaque étape du calcul.
