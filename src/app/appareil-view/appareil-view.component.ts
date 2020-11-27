@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 import { AppareilService } from '../services/appareil/appareil.service';
 
 @Component({
@@ -6,11 +7,14 @@ import { AppareilService } from '../services/appareil/appareil.service';
   templateUrl: './appareil-view.component.html',
   styleUrls: ['./appareil-view.component.scss']
 })
-export class AppareilViewComponent implements OnInit {
+export class AppareilViewComponent implements OnInit, OnDestroy {
 
     title = 'angularOCR ;-)';
 
     isAuth = false;
+
+    appareils: any[];
+    appareilSubscription: Subscription;
 
     
     @Input() id: number;
@@ -34,8 +38,6 @@ export class AppareilViewComponent implements OnInit {
   appareilTwo = 'frigo';
   appareilThree = 'lave linge';
   appareilFour = 'micro onde';
-
-  appareils: any[];
 
   // exo, tableau de posts
   posts = [
@@ -66,20 +68,28 @@ export class AppareilViewComponent implements OnInit {
   ];
 
 
-    constructor(private appareilService : AppareilService){
-
-        /** 
-         * permet à la variable isAuth de passer à true dans 4 secondes
-         */
+    constructor(private appareilService : AppareilService)
+    {
         setTimeout( 
             () => { 
-                this.isAuth = true ; 
+                this.isAuth = true ; // permet à la variable isAuth de passer à true dans 4 secondes
             } , 4000
         );
     }
 
     ngOnInit(){
-        this.appareils = this.appareilService.appareils;
+        this.appareilSubscription = this.appareilService.appareilsSubject.subscribe(
+
+            (appareils: any[] ) => {
+                this.appareils = appareils;
+            }
+        );
+        this.appareilService.emitAppareilSubject();
+    }
+
+    ngOnDestroy()
+    {
+        this.appareilSubscription.unsubscribe();
     }
 
     onAllume(){

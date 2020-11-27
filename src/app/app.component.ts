@@ -21,7 +21,8 @@ export class AppComponent implements OnInit, OnDestroy
         const counter = Observable.interval(1000);
 
         this.counterSubscription = counter.subscribe(
-            (value) => {
+            
+            (value: number) => {
                 this.secondes = value;
             },
 
