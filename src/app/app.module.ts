@@ -30,6 +30,7 @@ import { FourOhFourComponent }          from './four-oh-four/four-oh-four.compon
 import { AppareilService }      from './services/appareil/appareil.service';
 import { AuthService }          from './services/auth/auth.service';
 import { AuthGuardService }     from './services/guards/auth-guard.service';
+import { AddAppareilComponent } from './add-appareil/add-appareil.component';
 
 const appRoutes: Routes = [
 
@@ -52,7 +53,8 @@ const appRoutes: Routes = [
     AuthComponent,
     AppareilViewComponent,
     SingleAppareilComponent,
-    FourOhFourComponent
+    FourOhFourComponent,
+    AddAppareilComponent
   ],
   imports: [
     BrowserModule,
