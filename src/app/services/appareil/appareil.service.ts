@@ -70,4 +70,22 @@ export class AppareilService {
         );
         return appareil;
     }
+
+    addAppareil(name: string, status: string)
+    {
+        const appareilObject = {
+            id: 0,
+            name: '',
+            status: ''
+        };
+
+        appareilObject.name = name;
+        appareilObject.status = status;
+        
+        // prend l'id du dernier élément actuel de l'array et ajoute 1.
+        appareilObject.id = this.appareils[(this.appareils.length - 1 )].id + 1;
+
+        this.appareils.push(appareilObject);
+        this.emitAppareilSubject();
+    }
 }

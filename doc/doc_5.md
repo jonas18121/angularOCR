@@ -147,3 +147,46 @@ exemple :
         < option value="éteint">Éteint</ option>
     </ select>
 
+
+
+
+## Eploitez les données
+
+Dans la méthode onSubmit(), on va récupéré les données et les attribuer à 2 constantes pour les envoyer à AppareilService
+
+puisqu'on va forcément utiliser un champ name et un champ status dans ce formulaire, on peut les ecrire dans des constante 
+
+exemple dans AppareilService :
+
+    onSubmit(form: NgForm)
+    {
+        const name = form.value['value'];   
+        const status = form.value['status'];
+        this.appareilService.addAppareil(name, status);
+        this.router.navigate(['/appareils']);
+    }
+
+
+
+    addAppareil(name: string, status: string)
+    {
+        const appareilObject = {
+            id: 0,
+            name: '',
+            status: ''
+        };
+
+        appareilObject.name = name;
+        appareilObject.status = status;
+        appareilObject.id = this.appareilsSubject[(this.appareils.length - 1 )].id + 1;
+
+        this.appareils.push(appareilObject);
+        this.emitAppareilSubject();
+    }
+
+
+addAppareil crée un objet du bon format, et attribue le nom et le statut qui lui sont passés comme 
+arguments.  `La ligne pour l'id prend l'id du dernier élément actuel de l'array et ajoute 1`.  Ensuite, 
+l'objet complété est ajouté à l'array et le Subject est déclenché pour tout garder à jour.
+
+Maintenant, grâce à un formulaire simple géré par la méthode template, l'utilisateur peut créer un nouvel appareil pour la liste.
