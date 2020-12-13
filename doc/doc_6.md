@@ -389,3 +389,103 @@ Angular s'occupe ensuite d'exécuter ces fonctions au bon moment.
 En liant la validité de  userForm  à la propriété  disabled  du bouton  submit , on intégre la validation de données :
 
 <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">Soumettre</button>
+
+
+
+
+## Ajouter dynamiquement des FormControl
+
+Pour l'instant, on pas encore laissé la possibilité à l'utilisateur d'ajouter ses hobbies.  
+Il serait intéressant de lui laisser la possibilité d'en ajouter autant qu'il veut, et pour cela, 
+`on va utiliser un  FormArray .`  
+`Un  FormArray  est un array de plusieurs FormControl, et permet`, par exemple,
+`d'ajouter des nouveaux  controls  à un formulaire.`  
+on va utiliser cette méthode pour permettre à l'utilisateur d'ajouter ses hobbies.
+
+exemple dans new-user.component.ts
+
+    initForm() {
+        this.userForm = this.formBuilder.group({
+            firstName: ['', Validators.required],
+            lastName: ['', Validators.required],
+            email: ['', [Validators.required, Validators.email]],
+            drinkPreference: ['', Validators.required],
+`            hobbies: this.formBuilder.array([])`
+        });
+    }
+
+
+
+Ensuite on Modifie onSubmitForm() pour récupérer les valeurs, 
+si elles existent (sinon, retournez un array vide)
+
+toujours dans new-user.component.ts
+
+    onSubmitForm() {
+        const formValue = this.userForm.value;
+        const newUser = new User(
+            formValue['firstName'],
+            formValue['lastName'],
+            formValue['email'],
+            formValue['drinkPreference'],
+            formValue['hobbies'] ? formValue['hobbies'] : []
+        );
+        this.userService.addUser(newUser);
+        this.router.navigate(['/users']);
+    }
+
+
+
+Afin d'avoir accès aux controls à l'intérieur de l'array, 
+pour des raisons de typage strict liées à TypeScript, 
+il faut créer une méthode qui retourne hobbies par la méthode get() sous forme de FormArray ( FormArray  s'importe depuis  @angular/forms ) 
+
+toujours dans new-user.component.ts
+
+    getHobbies(): FormArray {
+        return this.userForm.get('hobbies') as FormArray;
+    }
+
+
+
+Ensuite, on va créer la méthode qui permet d'ajouter un FormControl à hobbies , 
+permettant ainsi à l'utilisateur d'en ajouter autant qu'il veut.  
+On va également rendre le nouveau champ requis, afin de ne pas avoir un array de hobbies avec des string vides .
+
+toujours dans new-user.component.ts
+
+    onAddHobby() {
+        const newHobbyControl = this.formBuilder.control(null, Validators.required);
+        this.getHobbies().push(newHobbyControl);
+    }
+
+Cette méthode crée un  control  avec la méthode  FormBuilder.control() , 
+et l'ajoute au  FormArray  rendu disponible par la méthode  getHobbies()
+
+
+Enfin, il faut ajouter une section au template qui permet d'ajouter des hobbies en ajoutant des  <input>  :
+
+exemple dans new-user.component.html
+
+    <div formArrayName="hobbies">
+        <h3>Vos hobbies</h3>
+        <div class="form-group" *ngFor="let hobbyControl of getHobbies().controls; let i = index">
+            <input type="text" class="form-control" [formControlName]="i">
+        </div>
+        <button type="button" class="btn btn-success" (click)="onAddHobby()">Ajouter un hobby</button>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">Soumettre</button>
+
+
+
+à la  <div>  qui englobe toute la partie  hobbies , on ajoute l'attribut  formArrayName , 
+qui correspond au nom choisi dans votre TypeScript ;
+
+la  <div>  de class  form-group  est ensuite répété pour chaque  FormControl  dans le  FormArray  (retourné par  getHobbies() , 
+initialement vide, en notant l'index afin de créer un nom unique pour chaque  FormControl ;
+
+dans cette  <div> , vous avec une  <input>  qui prendra comme  formControlName  l'index du  FormControl ;
+
+enfin, on a le bouton (de type  button  pour l'empêcher d'essayer de soumettre le formulaire) 
+qui déclenche  onAddHobby() , méthode qui, pour rappel, 
+crée un nouveau  FormControl  (affichant une nouvelle instance de la  <div>  de class  form-group , et donc créant une nouvelle  <input> )
