@@ -18,4 +18,9 @@ export class UserService {
     {
         this.userSubject.next(this.users.slice());
     }
+
+    addUser(user: User){
+        this.users.push(user);
+        this.emitUsers();
+    }
 }

@@ -26,6 +26,7 @@ import { SingleAppareilComponent }      from './single-appareil/single-appareil.
 import { FourOhFourComponent }          from './four-oh-four/four-oh-four.component';
 import { AddAppareilComponent }         from './add-appareil/add-appareil.component';
 import { UserListComponent }            from './user-list/user-list.component';
+import { NewUserComponent }             from './new-user/new-user.component';
 
 
 ////////////////////// S E R V I C E S //////////////////////
@@ -41,6 +42,7 @@ const appRoutes: Routes = [
     {path: 'add', canActivate: [AuthGuardService], component: AddAppareilComponent},
     {path: 'auth', component: AuthComponent},
     {path: 'users', component: UserListComponent},
+    {path: 'new-user', component: NewUserComponent},
     {path: '', component: AppareilViewComponent},
     {path: 'not-found', component: FourOhFourComponent},
     {path: '**', redirectTo: 'not-found'}
@@ -59,7 +61,8 @@ const appRoutes: Routes = [
     SingleAppareilComponent,
     FourOhFourComponent,
     AddAppareilComponent,
-    UserListComponent
+    UserListComponent,
+    NewUserComponent
   ],
   imports: [
     BrowserModule,
