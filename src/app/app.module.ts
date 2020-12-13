@@ -1,6 +1,6 @@
 import { BrowserModule }        from '@angular/platform-browser';
 import { NgModule }             from '@angular/core';
-import { FormsModule }          from '@angular/forms';
+import { FormsModule, ReactiveFormsModule }          from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 
@@ -25,12 +25,15 @@ import { AppareilViewComponent }        from './appareil-view/appareil-view.comp
 import { SingleAppareilComponent }      from './single-appareil/single-appareil.component';
 import { FourOhFourComponent }          from './four-oh-four/four-oh-four.component';
 import { AddAppareilComponent }         from './add-appareil/add-appareil.component';
+import { UserListComponent }            from './user-list/user-list.component';
+import { NewUserComponent }             from './new-user/new-user.component';
 
 
 ////////////////////// S E R V I C E S //////////////////////
 import { AppareilService }      from './services/appareil/appareil.service';
 import { AuthService }          from './services/auth/auth.service';
 import { AuthGuardService }     from './services/guards/auth-guard.service';
+import { UserService }          from './services/user/user.service';
 
 const appRoutes: Routes = [
 
@@ -38,6 +41,8 @@ const appRoutes: Routes = [
     {path: 'appareils/:id', canActivate: [AuthGuardService], component: SingleAppareilComponent},
     {path: 'add', canActivate: [AuthGuardService], component: AddAppareilComponent},
     {path: 'auth', component: AuthComponent},
+    {path: 'users', component: UserListComponent},
+    {path: 'new-user', component: NewUserComponent},
     {path: '', component: AppareilViewComponent},
     {path: 'not-found', component: FourOhFourComponent},
     {path: '**', redirectTo: 'not-found'}
@@ -55,11 +60,14 @@ const appRoutes: Routes = [
     AppareilViewComponent,
     SingleAppareilComponent,
     FourOhFourComponent,
-    AddAppareilComponent
+    AddAppareilComponent,
+    UserListComponent,
+    NewUserComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [
@@ -69,7 +77,8 @@ const appRoutes: Routes = [
     },
     AppareilService,
     AuthService,
-    AuthGuardService
+    AuthGuardService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })
