@@ -106,4 +106,9 @@ export class AppareilViewComponent implements OnInit, OnDestroy {
         }
     }
 
+    onSave()
+    {
+        this.appareilService.saveAppareilsToServer();
+    }
+
 }

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
     providedIn: 'root'
@@ -27,7 +28,22 @@ export class AppareilService {
     ];
 
 
-    constructor() { }
+    constructor(private httpClient: HttpClient) { }
+
+
+    saveAppareilsToServer()
+    {
+        this.httpClient
+        .put('https://httpclient-demo-50294-default-rtdb.europe-west1.firebasedatabase.app/appareils.json', this.appareils)
+        .subscribe(
+            () => {
+                console.log('Enregistrement terminé !');
+            },
+            (error) => {
+                console.log('Erreur ! : ' + error);
+            }
+        );
+    }
 
     emitAppareilSubject()
     {
