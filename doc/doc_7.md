@@ -22,15 +22,19 @@ On peut le domicilier dans notre pays de résidence et lui donner le nom qu'on v
 
 Une fois arrivé sur la console, `on va dans Database et on choisis le Realtime Database.`
 
-avant de 2020
+avant de 2020 : ------------------------------------------------------------------------------
 Afin d'éviter tout problème d'authentification pour l'instant, 
 On va `dans la section "Règles"` et on `définis  read  et  write  en  true` , 
 puis on publie les règles modifiées 
 
-a partir de 2020
+------------------------------------------------------------------------------------------------
+
+a partir de 2020 : ---------------------------------------------------------------------------------
 `puis crée une base de donnée et on coche la case test pour avoir accès tout public pour l'instant`
 et on prent l'url qu'il faut
 pour moi c'est ça : https://httpclient-demo-50294-default-rtdb.europe-west1.firebasedatabase.app/
+
+-----------------------------------------------------------------------------------------------------
 
 Puis `on revient à la section Données et on note l'URL de notre base de données, `
 On va en avoir besoin pour configurer les appels HTTP .
@@ -146,13 +150,13 @@ on devrait avoir notre message de réussite qui apparait dans la console.
 Si on regarde maintenant la console Firebase on aura des chose:
 
 
-Firebase a créé un nouveau node sous  appareils  avec un identifiant unique, et y a enregistré votre array  appareils
+Firebase a créé un nouveau node sous  appareils  avec un identifiant unique, et a enregistré notre array  appareils
 
 
-Cependant, si vous cliquez plusieurs fois sur ce bouton, Firebase continuera à créer de nouveaux nodes,
+Cependant, si on clique plusieurs fois sur ce bouton, Firebase continuera à créer de nouveaux nodes,
  et dans ce cas de figure, ce n'est pas le comportement souhaité. 
  Il faudrait que chaque enregistrement écrase le précédent : 
- pour cela, utilisez plutôt la méthode put() (il n'y a pas besoin de changer les arguments,
+ pour cela, on va utilisé plutôt la méthode put() (il n'y a pas besoin de changer les arguments,
 car les méthodes put() et post() prennent les deux mêmes premiers arguments) :
 
     saveAppareilsToServer() {
@@ -168,4 +172,61 @@ car les méthodes put() et post() prennent les deux mêmes premiers arguments) :
       );
 }
 
-Maintenant, quand vous enregistrez les données fait du bien.
+Maintenant, quand on enregistre les données, ça fait du bien.
+
+
+## Recevoir depuis le backend
+
+Afin de demander la liste des appareils (maintenant stocké au endpoint  /appareils ), 
+`on va créer une nouvelle méthode qui emploie la méthode get() dans AppareilService`
+
+exemple dans `appareil.service.ts`
+
+`    getAppareilsFromServer() {`
+        this.httpClient
+        .get<any[]>('https://httpclient-demo.firebaseio.com/appareils.json')
+        .subscribe(
+            (response) => {
+            this.appareils = response;
+            this.emitAppareilSubject();
+            },
+            (error) => {
+            console.log('Erreur ! : ' + error);
+            }
+        );
+    }
+
+
+Comme pour post() et put() , la méthode `get() retourne un Observable`, 
+mais `puisqu'on va recevoir des données, TypeScript a besoin de savoir de quel type elles seront retourné` 
+`(l'objet retourné est d'office considéré comme étant un Object). ` 
+Dans ce cas précis,` on va ajouter <any[]> entre la methode .get et ses parenthèses,` 
+pour dire qu'on va recevoir un array de type any , 
+Comme ça TypeScript pourra traiter cet objet comme un array.
+Si on ne le faites pas, TypeScript nous dira qu'un array ne peut pas être redéfini comme Object.
+
+-------------------------------------------------------
+
+On ajoute le bouton permettant de déclencher la méthode getAppareilsFromServer()
+dans `appareil-view.component.html`
+
+    <button class="btn btn-primary"
+        (click)="onFetch()">Récupérer les appareils</button>
+
+Et on ajoute la méthode onFetch() dans `appareil-view.component.ts`
+
+    onFetch() {
+        this.appareilService.getAppareilsFromServer();
+    }
+
+Maintenant, on peut ajouter de nouveaux appareils, en modifier l'état et les sauvegarder, 
+puis récupérer la liste sauvegardée.
+
+
+Il serait également possible de rendre automatique le chargement et l'enregistrement des appareils 
+(par exemple en appelant la méthode  getAppareilsFromServer() dans ngOnInit(),et saveAppareilsToServer()  après chaque modification), 
+mais j'ai souhaité laisser la possibilité de les exécuter manuellement afin de voir le résultat de manière plus concrète.
+
+Dans ce chapitre, on a appris à passer des appels à un serveur HTTP avec le service HttpClient. 
+On a utilisé un backend Firebase pour cette démonstration. 
+En effet, Firebase propose une API beaucoup plus flexible que des appels HTTP simples afin de profiter pleinement des services proposés.
