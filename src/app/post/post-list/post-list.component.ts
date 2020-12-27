@@ -9,13 +9,13 @@ export class PostListComponent implements OnInit {
 
   constructor() { }
 
-  @Input() posts : any = [];
+  @Input() postsStatic : any = [];
   @Input() lastUpdate;
 
   ngOnInit(): void {
 
-    console.log(this.posts.length);
-    console.log(this.posts);
+    console.log(this.postsStatic.length);
+    console.log(this.postsStatic);
     console.log(this.lastUpdate);
     
     

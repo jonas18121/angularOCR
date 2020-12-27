@@ -40,7 +40,7 @@ export class AppareilViewComponent implements OnInit, OnDestroy {
   appareilFour = 'micro onde';
 
   // exo, tableau de posts
-  posts = [
+  postsStatic = [
     {
       title: 'post 1',
       content: 'mon premier post mon premier post mon premier post mon premier post mon premier post mon premier post',

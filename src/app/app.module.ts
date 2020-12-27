@@ -28,7 +28,7 @@ import { FourOhFourComponent }          from './four-oh-four/four-oh-four.compon
 import { AddAppareilComponent }         from './add-appareil/add-appareil.component';
 import { UserListComponent }            from './user-list/user-list.component';
 import { NewUserComponent }             from './new-user/new-user.component';
-
+import { ArticleListComponent } 		from './article/article-list/article-list.component';
 
 ////////////////////// S E R V I C E S //////////////////////
 import { AppareilService }      from './services/appareil/appareil.service';
@@ -44,6 +44,12 @@ const appRoutes: Routes = [
     {path: 'auth', component: AuthComponent},
     {path: 'users', component: UserListComponent},
     {path: 'new-user', component: NewUserComponent},
+	
+	{path: 'article', component: ArticleListComponent, children: [
+		//{path: 'new', component: AddArticleComponent},
+		//{path: 'id', component: SingleArticleComponent}
+	]},
+	
     {path: '', component: AppareilViewComponent},
     {path: 'not-found', component: FourOhFourComponent},
     {path: '**', redirectTo: 'not-found'}
@@ -63,7 +69,8 @@ const appRoutes: Routes = [
     FourOhFourComponent,
     AddAppareilComponent,
     UserListComponent,
-    NewUserComponent
+    NewUserComponent,
+    ArticleListComponent
   ],
   imports: [
     BrowserModule,
