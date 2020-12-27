@@ -5,7 +5,7 @@
             <p>Mis à jour : {{ lastUpdate | async | date: 'EEEE d MMMM  y, h:mm:ss ' : 'fr' }}</p>
 
             <ul class="list-group">
-                <div *ngFor="let post of posts">
+                <div *ngFor="let post of postsStatic">
                     <app-post-list-item [post]="post"></app-post-list-item>
                 </div>
             </ul>
