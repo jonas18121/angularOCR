@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Article } from 'src/app/models/Article.model';
-import { ArticleService } from 'src/app/services/Article.service';
+import { ArticleService } from 'src/app/services/aricle/Article.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -36,7 +36,7 @@ export class ArticleListComponent implements OnInit {
      * naviguer vers  ArticleFormComponent  pour la création d'un nouveau article
      */
     onNewArticle(){
-        this.router.navigate(['/articles', 'new']);
+        this.router.navigate(['/article', 'add']);
     }
 
 }

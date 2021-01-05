@@ -35,6 +35,7 @@ import { AppareilService }      from './services/appareil/appareil.service';
 import { AuthService }          from './services/auth/auth.service';
 import { AuthGuardService }     from './services/guards/auth-guard.service';
 import { UserService }          from './services/user/user.service';
+import { AddArticleComponent } from './article/add-article/add-article.component';
 
 const appRoutes: Routes = [
 
@@ -45,8 +46,9 @@ const appRoutes: Routes = [
     {path: 'users', component: UserListComponent},
     {path: 'new-user', component: NewUserComponent},
 	
-	{path: 'article', component: ArticleListComponent, children: [
-		//{path: 'new', component: AddArticleComponent},
+	{path: 'article', children: [
+        {path: '', component: ArticleListComponent},
+		{path: 'add', component: AddArticleComponent},
 		//{path: 'id', component: SingleArticleComponent}
 	]},
 	
@@ -70,7 +72,8 @@ const appRoutes: Routes = [
     AddAppareilComponent,
     UserListComponent,
     NewUserComponent,
-    ArticleListComponent
+    ArticleListComponent,
+    AddArticleComponent
   ],
   imports: [
     BrowserModule,
