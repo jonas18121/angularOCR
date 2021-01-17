@@ -9,6 +9,7 @@ Puisque le routing d'une application est fondamentale pour son fonctionnement, `
 `On crée une constante de type Routes (qu'on importe depuis  @angular/router )` qui est un array d'objets JS qui prennent une certaine forme :
 
 exemple :
+
     import { NgModule } from '@angular/core';
     import { AppComponent } from './app.component';
     import { MonPremierComponent } from './mon-premier/mon-premier.component';
@@ -18,12 +19,12 @@ exemple :
     import { AuthComponent } from './auth/auth.component';
     import { AppareilViewComponent } from './appareil-view/appareil-view.component';
     `import { Routes } from '@angular/router';`
-.
-    `const appRoutes: Routes = [`
-        `{ path: 'appareils', component: AppareilViewComponent },`
-        `{ path: 'auth', component: AuthComponent },`
-        `{ path: '', component: AppareilViewComponent }`
-    `];`
+
+    const appRoutes: Routes = [
+        { path: 'appareils', component: AppareilViewComponent },
+        { path: 'auth', component: AuthComponent },
+        { path: '', component: AppareilViewComponent }
+    ];
 
 //  path: 'appareils' =  localhost:4200/appareils 
 //  component: AppareilViewComponent = le component qu'on veut afficher 
@@ -48,7 +49,7 @@ exemple :
     < div class="container">
     < div class="row">
         < div class="col-xs-12">
-            `< router-outlet>< /router-outlet>`
+            < router-outlet>< /router-outlet>
         < /div>
     < /div>
     < /div>
@@ -60,11 +61,13 @@ Lorsque vous changez de route (pour l'instant, en modifiant l'URL directement da
 ## Naviguer avec les routerLink
 
 Pour `naviguer dans l'application en mode Single Page App (SPA)`, il faut `remplacer` l'attribut `href` qui ce trouve `dans` la balise `< a>` , par `routerLink`.
-    `<a href="auth">Authentification</a>`       - recharge la page 
-    `<a routerLink="auth">Authentification</a>` - ne recharge pas la page , un peut comme ajax
+
+    <a href="auth">Authentification</a>       - recharge la page 
+    <a routerLink="auth">Authentification</a> - ne recharge pas la page , un peut comme ajax
 
 `routerLinkActive` permet de mettre en surbriallance la page qui est réellement actif dans la navbar
-    `< li routerLinkActive="active"><a routerLink="auth">Authentification</ a></ li>`
+
+`< li routerLinkActive="active"><a routerLink="auth">Authentification</ a></ li>`
 
 ### .navigate()
 
@@ -75,10 +78,10 @@ this.router.navigate(['appareils']); permet de créer des chemins à partir de v
 ## Route paramétrer
 
 dans appModules
-.
+
     const appRoutes: Routes = [
         { path: 'appareils', component: AppareilViewComponent },
-        `{ path: 'appareils/:id', component: SingleAppareilComponent },`
+        { path: 'appareils/:id', component: SingleAppareilComponent },
         { path: 'auth', component: AuthComponent },
         { path: '', component: AppareilViewComponent }
     ];
@@ -90,11 +93,12 @@ dans le component xxx.component.ts (SingleAppareilComponent ) qui représentera 
 Puis, `dans  ngOnInit() , vous allez utiliser l'objet  snapshot`
 
 exemple:
+
     constructor(private appareilService: AppareilService,
-        `private route: ActivatedRoute`) { }
-.
+        private route: ActivatedRoute) { }
+
     ngOnInit() {
-        `this.name = this.route.snapshot.params['id'];`
+        this.name = this.route.snapshot.params['id'];
     }
 
 dans AppareilService
@@ -159,14 +163,14 @@ Pour l'application des appareils électriques, `on commence par créer un`
 Ensuite, on va ajouter la route "directe" vers cette page, ainsi qu'une route "wildcard", qui redirigera toute route inconnue vers la page d'erreur :
 
 
-const appRoutes: Routes = [
-  { path: 'appareils', component: AppareilViewComponent },
-  { path: 'appareils/:id', component: SingleAppareilComponent },
-  { path: 'auth', component: AuthComponent },
-  { path: '', component: AppareilViewComponent },
-  `{ path: 'not-found', component: FourOhFourComponent },`
-  `{ path: '**', redirectTo: 'not-found' }`
-];
+    const appRoutes: Routes = [
+        { path: 'appareils', component: AppareilViewComponent },
+        { path: 'appareils/:id', component: SingleAppareilComponent },
+        { path: 'auth', component: AuthComponent },
+        { path: '', component: AppareilViewComponent },
+        { path: 'not-found', component: FourOhFourComponent },
+        { path: '**', redirectTo: 'not-found' }
+    ];
 
 Ainsi, quand on entre un chemin dans la barre de navigation qui n'est pas directement pris en charge par mon application, on est redirigé vers  /not-found  et donc le component 404.
 
@@ -180,46 +184,46 @@ une méthode du même nom `qui prend les arguments  ActivatedRouteSnapshot  et  
 
 exemple
 
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot,  Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { AuthService } from '../auth/auth.service';
+    import { Injectable } from '@angular/core';
+    import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot,  Router } from '@angular/router';
+    import { Observable } from 'rxjs';
+    import { AuthService } from '../auth/auth.service';
 
-@Injectable({providedIn: 'root'})
+    @Injectable({providedIn: 'root'})
 
-export class AuthGuardService implements CanActivate {
+    export class AuthGuardService implements CanActivate {
 
-    constructor(private authService : AuthService, private router: Router) { }
-.
-    canActivate(
-        route: ActivatedRouteSnapshot, 
-        state: RouterStateSnapshot
-    ): Observable <boolean> | Promise <boolean> | boolean
-    {
-        if (this.authService.isAuth) {
-            return true;
-        }else{
-            `this.router.navigate(['/auth']);`
+        constructor(private authService : AuthService, private router: Router) { }
+    .
+        canActivate(
+            route: ActivatedRouteSnapshot, 
+            state: RouterStateSnapshot
+        ): Observable <boolean> | Promise <boolean> | boolean
+        {
+            if (this.authService.isAuth) {
+                return true;
+            }else{
+                `this.router.navigate(['/auth']);`
+            }
         }
-    }
 
-    ngOnInit()
-    {
+        ngOnInit()
+        {
 
-    }
-} 
+        }
+    } 
 
 `Pour appliquer cette garde à la route  /appareils  et à toutes ses routes enfants`, 
 `il faut l'ajouter dans  AppModule .  N'oubliez pas d'ajouter  AuthGuardService  à l'array  providers` , puisqu'il s'agit d'un service :
 
-const appRoutes: Routes = [
-  { path: 'appareils', canActivate: [AuthGuard], component: AppareilViewComponent },
-  { path: 'appareils/:id', canActivate: [AuthGuard], component: SingleAppareilComponent },
-  { path: 'auth', component: AuthComponent },
-  { path: '', component: AppareilViewComponent },
-  { path: 'not-found', component: FourOhFourComponent },
-  { path: '**', redirectTo: 'not-found' }
-];
+    const appRoutes: Routes = [
+        { path: 'appareils', canActivate: [AuthGuard], component: AppareilViewComponent },
+        { path: 'appareils/:id', canActivate: [AuthGuard], component: SingleAppareilComponent },
+        { path: 'auth', component: AuthComponent },
+        { path: '', component: AppareilViewComponent },
+        { path: 'not-found', component: FourOhFourComponent },
+        { path: '**', redirectTo: 'not-found' }
+    ];
 
 Maintenant, si vous essayez d'accéder à  /appareils  sans être authentifié, vous êtes `automatiquement redirigé vers  /auth` .  Si vous cliquez sur "Se connecter", vous pouvez accéder à la liste d'appareils sans problème.
 

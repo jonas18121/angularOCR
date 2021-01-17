@@ -18,36 +18,39 @@ Du coup, `tout Observer peut avoir trois fonctions : une pour réagir à chaque 
 
 Pour avoir accès aux Observables et aux méthodes qu'on veut utiliser, 
 il faut ajouter deux imports :
-    `import { Observable } from 'rxjs/Observable';`
-    `import 'rxjs/add/observable/interval';`
+
+    import { Observable } from 'rxjs/Observable';
+    import 'rxjs/add/observable/interval';
 
 `Le premier import` sert à rendre disponible le type Observable, 
-`et le deuxième donne accès à la méthode qu'on va utiliser : la méthode  interval() , `
+et le deuxième donne accès à la méthode qu'on va utiliser : la méthode  interval() , 
 qui crée un Observable qui émet un chiffre croissant à intervalles réguliers et qui prend le nombre de millisecondes souhaité pour l'intervalle comme argument. 
 aller sur le site https://rxjs-dev.firebaseapp.com/api/index/function/interval
 
 exemple : 
-import { Component, OnInit } from '@angular/core';
-`import { Observable } from 'rxjs/Observable';`
-`import 'rxjs/add/observable/interval';`
 
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
-})
-export class AppComponent implements OnInit {
+    import { Component, OnInit } from '@angular/core';
+    import { Observable } from 'rxjs/Observable';
+    import 'rxjs/add/observable/interval';
 
-  ngOnInit() {
-    `const counter = Observable.interval(1000);`
-  }
-}
+    @Component({
+        selector: 'app-root',
+        templateUrl: './app.component.html',
+        styleUrls: ['./app.component.scss']
+    })
+    export class AppComponent implements OnInit {
+
+        ngOnInit() {
+            `const counter = Observable.interval(1000);`
+        }
+    }
 
 `On va observer` cet observable `avec la fonction subscribe()`
 `qui prendra comme arguments entre 1 et 3 fonctions anonymes` pour gérer les trois 
 types d'informations que cet Observable peut envoyer : des données, une erreur ou un message complete
 
 exemple : On cré une variable  secondes  dans  AppComponent  et on affiche dans le template :
+
     < ul class="nav navbar-nav">
     < /ul>
     < div class="navbar-right">
@@ -58,6 +61,7 @@ exemple : On cré une variable  secondes  dans  AppComponent  et on affiche dans
 Dans ngOnInit() , on met les 3 fonctions que renvoie l'observable :
 des données, une erreur ou un message complete
 Dans le cas actuel, l'Observable qu'on crée ne rendra pas d'erreur et ne se complétera pas. c'est juste un exemple
+
     ngOnInit() {
         const counter = Observable.interval(1000);
 
@@ -95,7 +99,7 @@ que l'on s'en serve ou non, et `vous pouvez en subir des comportements inattendu
 
 
 `Ce n'est pas le cas pour tous les Observables. Généralement, les souscriptions aux` 
-`Observables fournis par Angular se suppriment toutes seules lors de la destruction du component.`
+Observables fournis par Angular se suppriment toutes seules lors de la destruction du component.
 
 
 `Afin d'éviter tout problème, quand vous utilisez des Observables personnalisés`, 
@@ -105,48 +109,49 @@ il est vivement conseillé de `stocker la souscription dans un objet Subscriptio
 `ngOnDestroy()  qui se déclenche quand un component est détruit` :
 
 exemple :
-`import { Component, OnDestroy, OnInit } from '@angular/core';`
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/interval';
-`import { Subscription } from 'rxjs/Subscription';`
 
-// component de base
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
-})
-export class AppComponent implements OnInit, OnDestroy
-{
+    import { Component, OnDestroy, OnInit } from '@angular/core';
+    import { Observable } from 'rxjs/Observable';
+    import 'rxjs/add/observable/interval';
+    import { Subscription } from 'rxjs/Subscription';
 
-    secondes: number;
-    counterSubscription: Subscription;
-
-
-    ngOnInit(){
-        const counter = Observable.interval(1000);
-
-`        this.counterSubscription = counter.subscribe(`
-            (value) => {
-                this.secondes = value;
-            },
-
-            (error) => {
-                console.log('ERREUR : ' + error);
-                
-            },
-
-            () => {
-                console.log('Observable complete !');
-            }
-        );
-    }
-
-    ngOnDestroy()
+    // component de base
+    @Component({
+        selector: 'app-root',
+        templateUrl: './app.component.html',
+        styleUrls: ['./app.component.scss']
+    })
+    export class AppComponent implements OnInit, OnDestroy
     {
-`        this.counterSubscription.unsubscribe();`
+
+        secondes: number;
+        counterSubscription: Subscription;
+
+
+        ngOnInit(){
+            const counter = Observable.interval(1000);
+
+            this.counterSubscription = counter.subscribe(
+                (value) => {
+                    this.secondes = value;
+                },
+
+                (error) => {
+                    console.log('ERREUR : ' + error);
+                    
+                },
+
+                () => {
+                    console.log('Observable complete !');
+                }
+            );
+        }
+
+        ngOnDestroy()
+        {
+            this.counterSubscription.unsubscribe();
+        }
     }
-}
 
 La fonction  `unsubscribe()  détruit la souscription` et empêche les comportements inattendus liés aux Observables infinis, donc n'oubliez pas de unsubscribe !
 
@@ -159,34 +164,35 @@ La fonction  `unsubscribe()  détruit la souscription` et empêche les comportem
 Imaginez une variable dans un service, par exemple, `qui peut être modifié depuis plusieurs components` ET qui fera `réagir tous les components` qui y sont liés en même temps.  `Voici l'intérêt des Subjects`.
 
 plusieurs étapes à faire : 
-.
-    - rendre `private l'array des appareils`, dans AppareilService
-.
-    - `créer un Subject dans le service`, dans AppareilService
-.
-    - `créer une méthode (exemple : emitAppareilSubject() ) ` dans AppareilService
+
+    - rendre private l'array des appareils, dans AppareilService
+
+    - créer un Subject dans le service, dans AppareilService
+
+    - créer une méthode (exemple : emitAppareilSubject() )  dans AppareilService
         qui réagit lorsque le service reçoit de nouvelles données, 
         puis qui émet ces données par le Subject et 
         qui appele cette méthode dans toutes les méthodes qui en ont besoin ;
-.
-    - `souscrire à ce Subject  pour recevoir les données émises`, dans AppareilViewComponent
+
+    - souscrire à ce Subject  pour recevoir les données émises, dans AppareilViewComponent
         qui émet les premières données, 
         et qui implémente  OnDestroy  pour détruire la souscription.
 
 exemple 
 
 dans AppareilService
+
     import { Injectable } from '@angular/core';
-`    import { Subject } from 'rxjs/Subject';`
+    import { Subject } from 'rxjs/Subject';
 
     @Injectable({
         providedIn: 'root'
     })
     export class AppareilService {
 
-`        appareilsSubject = new Subject <any[]> ();`
+        appareilsSubject = new Subject <any[]> ();
 
-`        private appareils = [`
+        private appareils = [
             {
                 id: 1,
                 name : 'télévision',
@@ -206,23 +212,24 @@ dans AppareilService
 
         constructor() { }
 
-`        emitAppareilSubject()`
+        emitAppareilSubject()
         {
-`            this.appareilsSubject.next(this.appareils.slice());`
+            this.appareilsSubject.next(this.appareils.slice());
         }
     }
 
 
 
 dans AppareilViewComponent 
-`    import { Component, OnInit, Input, OnDestroy } from '@angular/core';`
-`    import { Subscription } from 'rxjs/Subscription';`
+
+    import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+    import { Subscription } from 'rxjs/Subscription';
     import { AppareilService } from '../services/appareil/appareil.service';
 
     @Component({
-    selector: 'app-appareil-view',
-    templateUrl: './appareil-view.component.html',
-    styleUrls: ['./appareil-view.component.scss']
+        selector: 'app-appareil-view',
+        templateUrl: './appareil-view.component.html',
+        styleUrls: ['./appareil-view.component.scss']
     })
     export class AppareilViewComponent implements OnInit, OnDestroy {
 
@@ -230,8 +237,8 @@ dans AppareilViewComponent
 
         isAuth = false;
 
-`        appareils: any[];`
-`        appareilSubscription: Subscription;`
+        appareils: any[];
+        appareilSubscription: Subscription;
 
         
         @Input() id: number;
@@ -301,12 +308,12 @@ dans AppareilViewComponent
                     this.appareils = appareils;
                 }
             );
-`            this.appareilService.emitAppareilSubject();`
+            this.appareilService.emitAppareilSubject();
         }
 
-`        ngOnDestroy()`
+        ngOnDestroy()
         {
-`            this.appareilSubscription.unsubscribe();`
+            this.appareilSubscription.unsubscribe();
         }
 
 
@@ -317,19 +324,19 @@ dans AppareilViewComponent
 et qui peut filtrer et/ou modifier les données reçues avant même qu'elles n'arrivent à la Subscription.  
 
 Voici quelques exemples rapides :
-.
-    - `map()`  : modifie les valeurs reçues — 
+
+    - map()  : modifie les valeurs reçues — 
         peut effectuer des calculs sur des chiffres, 
         transformer du texte, 
         créer des objets…
-.
-    - `filter()`  :  filtre les valeurs reçues selon la fonction qu'on lui passe en argument.
-.
-    - `throttleTime()`  : impose un délai minimum entre deux valeurs — par exemple, 
+
+    - filter()  :  filtre les valeurs reçues selon la fonction qu'on lui passe en argument.
+
+    - throttleTime()  : impose un délai minimum entre deux valeurs — par exemple, 
         si un Observable émet cinq valeurs par seconde, mais ce sont uniquement les valeurs reçues toutes les secondes qui vous intéressent, 
         vous pouvez passer  throttleTime(1000)  comme opérateur.
-.
-    - `scan()  et  reduce()`  : permettent d'exécuter une fonction qui réunit 
+
+    - scan()  et  reduce()  : permettent d'exécuter une fonction qui réunit 
         l'ensemble des valeurs reçues selon une fonction que vous lui passez — par exemple, 
             vous pouvez faire la somme de toutes les valeurs reçues.    
         La différence basique entre les deux opérateurs :   
