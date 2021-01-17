@@ -283,6 +283,7 @@ Au-delà de modifier des styles directement, il peut être très utile d'`ajoute
 Que ce soit pour  `ngStyle  ou pour  ngClass` , les objets JS peuvent être des `variables valables dans votre TypeScript` qui seront ensuite `référencées par la directive`, par exemple :  [ngClass]="myClassObject"
 
 exemple :
+
     < l i [ngClass]="{
       'list-group-item' : true,
       'list-group-item-success' : appareilStatus === 'allumé',
@@ -301,6 +302,7 @@ Les `pipes` (/pʌɪp/) prennent des `données en input`, les `transforment`, et 
 `DatePipe` analyse des objets JS de type Date et qui les affiche d'une manière plus lisible que leur encodage de base
 
 exemple :
+
   dans app.component.ts :
     export class AppComponent {
       lastUpdate = new Date();
@@ -314,7 +316,8 @@ exemple :
 
 version inférieur a angular 5 :
 dans `app.module.ts` mettre 
-    `import { LOCALE_ID } from '@angular/core';`
+
+    import { LOCALE_ID } from '@angular/core';
 
 puis mettre `{  provide: LOCALE_ID,useValue: 'fr'}` dans providers[] toujours dans `app.module.ts`
 
@@ -359,6 +362,7 @@ dans `app.component.ts` :
     });
 
 puis dans `app.component.html` :
+
     < p >Mis à jour : {{ lastUpdate | async | date: 'yMMMMEEEEd' | uppercase }}< / p >
 
 `Maintenant`, quand la page recharge, `le champ` "Mis à jour" est vide et puis, au bout de deux secondes, `les données retournées par la Promise sont reçues, modifiées par les pipes suivants, et affichées.`
