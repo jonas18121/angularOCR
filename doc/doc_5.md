@@ -28,22 +28,22 @@ dans add-appareil.component.html
     < div class="row">
         < div class="col-sm-8 col-sm-offset-2">
 
-`            < form (ngSubmit)="onSubmit(form_add_appareil)" #form_add_appareil="ngForm">`
+            < form (ngSubmit)="onSubmit(form_add_appareil)" #form_add_appareil="ngForm">
 
                 < div class="form-group">
                     < label for="name">Nom de l'appareil< /label>
- `                   < input type="text" id="name" class="form-control" name="name" ngModel>`
+                    < input type="text" id="name" class="form-control" name="name" ngModel>
                 < /div>
 
                 < div class="form-group">
                     < label for="status">Etata de l'appareil< /label>
-`                    < select id="status" class="form-control" name="status" ngModel>`
+                    < select id="status" class="form-control" name="status" ngModel>
                         < option value="allumé">Allumé< /option>
                         < option value="éteint">Eteint< /option>
                     < /select>
                 < /div>
 
-`               < button class="btn btn-primary" type="submit">Enregistrer< /button>`
+               < button class="btn btn-primary" type="submit">Enregistrer< /button>
 
             < /form>
 
@@ -83,23 +83,23 @@ et grâce à la référence locale  #f="ngForm" , on peut passer l'objet à la m
 Pour avoir accès au formulaire, créez une nouvelle route dans  AppModule  et un  routerLink  correspondant 
 dans la barre de menu :
 
-const appRoutes: Routes = [
+    const appRoutes: Routes = [
 
-    {path: 'appareils', canActivate: [AuthGuardService], component: AppareilViewComponent},
-    {path: 'appareils/:id', canActivate: [AuthGuardService], component: SingleAppareilComponent},
-`   {path: 'add', canActivate: [AuthGuardService], component: AddAppareilComponent},`
-    {path: 'auth', component: AuthComponent},
-    {path: '', component: AppareilViewComponent},
-    {path: 'not-found', component: FourOhFourComponent},
-    {path: '**', redirectTo: 'not-found'}
-];
+        {path: 'appareils', canActivate: [AuthGuardService], component: AppareilViewComponent},
+        {path: 'appareils/:id', canActivate: [AuthGuardService], component: SingleAppareilComponent},
+        {path: 'add', canActivate: [AuthGuardService], component: AddAppareilComponent},
+        {path: 'auth', component: AuthComponent},
+        {path: '', component: AppareilViewComponent},
+        {path: 'not-found', component: FourOhFourComponent},
+        {path: '**', redirectTo: 'not-found'}
+    ];
 
 
-< ul class="nav navbar-nav">
-    < li routerLinkActive="active">< a routerLink="auth">Authentification</ a></ li>
-    < li routerLinkActive="active">< a routerLink="appareils">Appareils</ a></ li>
-`    < li routerLinkActive="active">< a routerLink="edit">Nouvel appareil</ a></ li>`
-< /ul>
+    < ul class="nav navbar-nav">
+        < li routerLinkActive="active">< a routerLink="auth">Authentification</ a></ li>
+        < li routerLinkActive="active">< a routerLink="appareils">Appareils</ a></ li>
+        < li routerLinkActive="active">< a routerLink="edit">Nouvel appareil</ a></ li>
+    < /ul>
 
 
 
@@ -137,12 +137,12 @@ choisie par défaut empêche le deuxième champ d'être vide également.
 exemple :
 
     export class EditAppareilComponent implements OnInit {
-`        defaultOnOff = 'éteint';`
+        defaultOnOff = 'éteint';
         constructor() { }
     }
 
 
-`    < select id="status" class="form-control" name="status" [ngModel]="defaultOnOff">`
+    < select id="status" class="form-control" name="status" [ngModel]="defaultOnOff">
         < option value="allumé">Allumé</ option>
         < option value="éteint">Éteint</ option>
     </ select>

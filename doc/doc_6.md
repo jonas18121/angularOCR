@@ -22,6 +22,7 @@ exemple :
 `const user = new User('James', 'Smith', 'james@james.com', 'jus d\'orange', ['football', 'lecture'])`.
  
 `ça créera un nouvel objet User avec ces valeurs attribuées aux variables` :
+
     - user.firstName ,  
     - user.lastName  
     - etc.
@@ -40,6 +41,7 @@ exemple dans `models/User.model.ts`
 
 public hobbies?: string[] :
 ` Le point d'interrogation veut dire que c'est optionnel` 
+
 ` string[] veut dire que c'est un array de type string` 
 
 
@@ -123,11 +125,11 @@ Ici, on applique des directives  *ngFor  et  *ngIf  pour afficher la liste des u
 leurs hobbies, s'ils en ont.
 
     <ul class="list-group">
-`        <li class="list-group-item" *ngFor="let user of users">`
+        <li class="list-group-item" *ngFor="let user of users">
             <h3>{{ user.firstName }} {{ user.lastName }}</h3>
             <p>{{ user.email }}</p>
             <p>Cette persone préfère le {{ user.drinkPreference }}</p>
-`            <p *ngIf="user.hobbies && user.hobbies.length > 0">`
+            <p *ngIf="user.hobbies && user.hobbies.length > 0">
             Cette personne a des hobbies !
             <span *ngFor="let hobby of user.hobbies">{{ hobby }} - </span>
             </p>
@@ -184,7 +186,7 @@ Puisque l'objectif est d'avoir des champs vides au départ, chaque valeur ici co
 Exemple dans `new-user.component.ts` :
 
     import { Component, OnInit } from '@angular/core';
-`    import { FormBuilder, FormGroup } from '@angular/forms';`
+    import { FormBuilder, FormGroup } from '@angular/forms';
 
     @Component({
     selector: 'app-new-user',
@@ -193,17 +195,17 @@ Exemple dans `new-user.component.ts` :
     })
     export class NewUserComponent implements OnInit {
 
-`        userForm: FormGroup;`
+        userForm: FormGroup;
 
-`       constructor(private formBuilder: FormBuilder) { }`
+       constructor(private formBuilder: FormBuilder) { }
 
         ngOnInit(): void {
-`             this.initForm();` 
+             this.initForm();
         }
 
-`         initForm()` 
+         initForm() 
         {
-`            this.userForm = this.formBuilder.group({`
+            this.userForm = this.formBuilder.group({
                 firstName: '',
                 lastName: '',
                 email: '',
@@ -336,7 +338,7 @@ et de créer la route correspondante  new-user  dans  AppModule
                 <span *ngFor="let hobby of user.hobbies">{{ hobby }} - </span>
             </p>
         </li>
-`        <a routerLink="/new-user">Nouvel utilisateur</a>`
+        <a routerLink="/new-user">Nouvel utilisateur</a>
 
     </ul>
 
@@ -410,7 +412,7 @@ exemple dans new-user.component.ts
             lastName: ['', Validators.required],
             email: ['', [Validators.required, Validators.email]],
             drinkPreference: ['', Validators.required],
-`            hobbies: this.formBuilder.array([])`
+            hobbies: this.formBuilder.array([])
         });
     }
 

@@ -52,7 +52,7 @@ exemple dans app.modules.ts :
         BrowserModule,
         FormsModule,
         ReactiveFormsModule,
-`        HttpClientModule,`
+        HttpClientModule,
         RouterModule.forRoot(appRoutes)
     ],
 
@@ -70,9 +70,9 @@ dans appareil.services.ts
 
     import { Subject } from 'rxjs/Subject';
     import { Injectable } from '@angular/core';
-`    import { HttpClient } from '@angular/common/http';`
+    import { HttpClient } from '@angular/common/http';
 
- `   @Injectable()`
+    @Injectable()
     export class AppareilService {
 
     appareilsSubject = new Subject<any[]>();
@@ -95,9 +95,9 @@ dans appareil.services.ts
         }
     ];
     
-`    constructor(private httpClient: HttpClient) { }`
+    constructor(private httpClient: HttpClient) { }
 
-`    saveAppareilsToServer() {`
+    saveAppareilsToServer() {
         this.httpClient
         .post('https://httpclient-demo-50294-default-rtdb.europe-west1.firebasedatabase.app/appareils.json', this.appareils)
         .subscribe(
@@ -133,14 +133,14 @@ dans `appareil-view.component.html`
         (click)="onAllumer()">Tout allumer</button>
     <button class="btn btn-danger"
             (click)="onEteindre()">Tout éteindre</button>
-`    <button class="btn btn-primary"`
-`            (click)="onSave()">Enregistrer les appareils</button>`
+    <button class="btn btn-primary"
+            (click)="onSave()">Enregistrer les appareils</button>
 
 
 dans `appareil-view.component.ts`
 
-`    onSave() {`
-`        this.appareilService.saveAppareilsToServer();`
+    onSave() {
+        this.appareilService.saveAppareilsToServer();
     }
 
 
@@ -160,17 +160,17 @@ Cependant, si on clique plusieurs fois sur ce bouton, Firebase continuera à cr�
 car les méthodes put() et post() prennent les deux mêmes premiers arguments) :
 
     saveAppareilsToServer() {
-    this.httpClient
-      .put('https://httpclient-demo.firebaseio.com/appareils.json', this.appareils)
-      .subscribe(
-        () => {
-          console.log('Enregistrement terminé !');
-        },
-        (error) => {
-          console.log('Erreur ! : ' + error);
-        }
-      );
-}
+        this.httpClient
+        .put('https://httpclient-demo.firebaseio.com/appareils.json', this.appareils)
+        .subscribe(
+            () => {
+            console.log('Enregistrement terminé !');
+            },
+            (error) => {
+            console.log('Erreur ! : ' + error);
+            }
+        );
+    }
 
 Maintenant, quand on enregistre les données, ça fait du bien.
 
@@ -182,7 +182,7 @@ Afin de demander la liste des appareils (maintenant stocké au endpoint  /appare
 
 exemple dans `appareil.service.ts`
 
-`    getAppareilsFromServer() {`
+    getAppareilsFromServer() {
         this.httpClient
         .get<any[]>('https://httpclient-demo.firebaseio.com/appareils.json')
         .subscribe(

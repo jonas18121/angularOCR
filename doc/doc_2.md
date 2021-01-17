@@ -100,6 +100,7 @@ puisse dire au service  xxx.Service.ts à quel index de l'array elle correspond 
 on fait ça *ngFor 
 
 exemple :
+
     < app-appareil  `*ngFor=`"let appareil of appareils; `let i = index`"
                    [ appareilName]="appareil.name"
                    [ appareilStatus]="appareil.status"></ app-appareil>
@@ -113,6 +114,7 @@ le xxx.component.ts correspondant :
 puis `on lie l'index i depuis le template xxx.component.html` correspondant
 
 exemple : 
+
     < app-appareil  *ngFor="let appareil of appareils; let i = index"
                    [ appareilName]="appareil.name"
                    [ appareilStatus]="appareil.status" 
