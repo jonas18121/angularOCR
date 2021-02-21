@@ -45,7 +45,8 @@ pour cela , il faut `importer RouterModule depuis @angular/router et l'ajouter �
 
 Maintenant que les routes sont enregistrées, `il ne reste plus qu'à dire à Angular où on souhaite afficher les components dans le template lorsque l'utilisateur navigue vers la route en question.`  On utilise la balise  < router-outlet>  :
 
-exemple : 
+exemple dans `app.component.html` : 
+
     < div class="container">
     < div class="row">
         < div class="col-xs-12">

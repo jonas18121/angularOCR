@@ -32,6 +32,14 @@ Le dossier  `node_modules`  contient toutes les dépendances pour votre applicat
 
     //////////////////////////////////////////////////////////
 
+## Debuguer dans le html de Angular
+
+    <pre>
+        <!-- pour debug dans html angular -->
+        <span>{{eleve | json}}</span>
+    </pre>
+
+
 ## déclaration de variable
 
   dans fichier xxx.component.ts , on declare une variable dans la class exemple, `nomDeVariable : string = 'valeur de la variable';`
